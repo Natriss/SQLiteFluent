@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SQLiteFluent.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SQLiteFluent.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+
+    <Grid ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        
+        <Border Grid.Column="0" Background="{StaticResource CardBackgroundFillColorDefault}" BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1" CornerRadius="{StaticResource ControlCornerRadius}">
+            <TreeView ItemsSource="{x:Bind ViewModel.Nodes}" CanDragItems="False" AllowDrop="False">
+                <TreeView.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Add connection" />
+                    </MenuFlyout>
+                </TreeView.ContextFlyout>
+            </TreeView>
+        </Border>
+        
+        <Grid Grid.Column="1" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" Margin="0,0,0,4" Style="{StaticResource AccentButtonStyle}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE768;" />
+                            <TextBlock Text="Execute" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <TextBox Grid.Row="1" AcceptsReturn="True" />
+            </Grid>            
+            <TextBlock Grid.Row="1" />
+            
+            <controls:GridSplitter Grid.Row="1"
+                               Height="16"
+                               VerticalAlignment="Top">
+                <controls:GridSplitter.RenderTransform>
+                    <TranslateTransform Y="-16" />
+                </controls:GridSplitter.RenderTransform>
+            </controls:GridSplitter>
+        </Grid>
+
+        <controls:GridSplitter Grid.Column="1"
+                               Width="16"
+                               HorizontalAlignment="Left"
+                               ResizeBehavior="BasedOnAlignment"
+                               ResizeDirection="Auto">
+            <controls:GridSplitter.RenderTransform>
+                <TranslateTransform X="-16" />
+            </controls:GridSplitter.RenderTransform>
+        </controls:GridSplitter>
+    </Grid>
+</Page>

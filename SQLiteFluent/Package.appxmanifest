@@ -34,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="SQLiteFluent"
-        Description="SQLiteFluent"
+        DisplayName="ms-resource:ApplicationName"
+        Description="Lightweight SQLiteFluent editor"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
