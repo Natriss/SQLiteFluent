@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SQLiteFluent (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SQLiteFluent (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
