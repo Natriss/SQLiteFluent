@@ -153,6 +153,19 @@
   <data name="ImportDatabase.Text" xml:space="preserve">
     <value>Import database</value>
   </data>
+  <data name="ImportDatabaseDialog.Text" xml:space="preserve">
+    <value>Give the path of your SQLite Database.
+Existing database will be overwritten.</value>
+  </data>
+  <data name="ImportDatabaseDialogCloseBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ImportDatabaseDialogPrimaryBtn" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportDatabaseDialogTitle" xml:space="preserve">
+    <value>Import database</value>
+  </data>
   <data name="RefreshDatabaseList.Text" xml:space="preserve">
     <value>Refresh database list</value>
   </data>

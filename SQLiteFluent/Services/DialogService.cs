@@ -33,5 +33,29 @@ namespace SQLiteFluent.Services
 
 			return result;
 		}
+
+		public static async Task<ContentDialogResult> ImportDatabaseAsync()
+		{
+			ContentDialog contentDialog = new()
+			{
+				XamlRoot = App.Root.XamlRoot,
+				Title = "ImportDatabaseDialogTitle".GetLocalized(),
+				Content = new ImportDatabaseDialog(),
+				PrimaryButtonText = "ImportDatabaseDialogPrimaryBtn".GetLocalized(),
+				CloseButtonText = "ImportDatabaseDialogCloseBtn".GetLocalized(),
+				DefaultButton = ContentDialogButton.Primary,
+			};
+			ContentDialogResult result = await contentDialog.ShowAsync();
+
+			if (result != ContentDialogResult.Primary)
+			{
+				return result;
+			}
+
+			ImportDatabaseDialogViewModel vm = (ImportDatabaseDialogViewModel)((ImportDatabaseDialog)contentDialog.Content).DataContext;
+			DataAccess.ImportDatabase(vm.Path);
+
+			return result;
+		}
 	}
 }

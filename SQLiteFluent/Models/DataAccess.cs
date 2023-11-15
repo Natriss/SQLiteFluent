@@ -16,6 +16,12 @@ namespace SQLiteFluent.Models
 			await ApplicationData.Current.LocalFolder.CreateFileAsync($"{name}.db", CreationCollisionOption.OpenIfExists);
 		}
 
+		public static void ImportDatabase(string path)
+		{
+			string name = path.Trim(new char[] { '\"' }).Split("\\").ToList().Last();
+			File.Copy(path.Trim(new char[] { '\"' }), Path.Combine(ApplicationData.Current.LocalFolder.Path, name), true);
+		}
+
 		public static void DeleteDatabase(string name)
 		{
 			string pathDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, $"{name}.db");

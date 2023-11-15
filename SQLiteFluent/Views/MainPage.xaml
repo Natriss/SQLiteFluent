@@ -112,7 +112,7 @@
                                 <FontIcon Glyph="&#xE710;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem x:Uid="ImportDatabase">
+                        <MenuFlyoutItem x:Uid="ImportDatabase" Command="{x:Bind ViewModel.ImportDatabaseFlyoutCommand}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE8B5;" />
                             </MenuFlyoutItem.Icon>
