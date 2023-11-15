@@ -117,7 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddDatabase.Text" xml:space="preserve">
+    <value>Add database</value>
+  </data>
+  <data name="AddDatabaseDialog.Text" xml:space="preserve">
+    <value>Give your new SQLite Database a name.</value>
+  </data>
+  <data name="AddDatabaseDialogCloseBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AddDatabaseDialogPrimaryBtn" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddDatabaseDialogTitle" xml:space="preserve">
+    <value>Add database</value>
+  </data>
   <data name="ApplicationName" xml:space="preserve">
     <value>SQLiteFluent</value>
+  </data>
+  <data name="ClearDatabase.Text" xml:space="preserve">
+    <value>Clear database</value>
+  </data>
+  <data name="Database.Text" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="DeleteDatabase.Text" xml:space="preserve">
+    <value>Delete database</value>
+  </data>
+  <data name="DeleteTable.Text" xml:space="preserve">
+    <value>Delete table</value>
+  </data>
+  <data name="Execute.Text" xml:space="preserve">
+    <value>Execute</value>
+  </data>
+  <data name="ImportDatabase.Text" xml:space="preserve">
+    <value>Import database</value>
+  </data>
+  <data name="RefreshDatabaseList.Text" xml:space="preserve">
+    <value>Refresh database list</value>
   </data>
 </root>

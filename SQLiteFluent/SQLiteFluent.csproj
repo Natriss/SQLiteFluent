@@ -12,6 +12,7 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Views\Dialogs\AddDatabaseDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
   </ItemGroup>
 
@@ -42,7 +43,15 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SQLiteFluent.Core\SQLiteFluent.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\AddDatabaseDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

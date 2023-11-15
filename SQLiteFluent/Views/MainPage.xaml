@@ -5,31 +5,139 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SQLiteFluent.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.Controls" xmlns:models="using:SQLiteFluent.Models"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="DatabaseTemplate" x:DataType="models:DatabaseTreeItem">
+            <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <TreeViewItem.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Uid="ClearDatabase" Icon="Clear" />
+                        <MenuFlyoutItem x:Uid="DeleteDatabase" Icon="Delete" />
+                    </MenuFlyout>
+                </TreeViewItem.ContextFlyout>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TablesGroupTemplate" x:DataType="models:DatabaseTreeItem">
+            <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Tables" />
+                        <TextBlock Foreground="Gray" >(<Run Text="{x:Bind Children.Count, Mode=OneWay}" />)</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TableTemplate" x:DataType="models:DatabaseTreeItem">
+            <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <TreeViewItem.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Uid="DeleteTable" Icon="Delete" />
+                    </MenuFlyout>
+                </TreeViewItem.ContextFlyout>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ViewsGroupTemplate" x:DataType="models:DatabaseTreeItem">
+            <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Views" />
+                        <TextBlock Foreground="Gray" >(<Run Text="{x:Bind Children.Count, Mode=OneWay}" />)</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ViewTemplate" x:DataType="models:DatabaseTreeItem">
+            <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FieldTemplate" x:DataType="models:DatabaseTreeItem">
+            <TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind FieldType, Mode=OneWay}" Foreground="Gray" />
+                    </StackPanel>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <models:DatabaseTreeItemTemplateSelector x:Key="DatabaseTreeItemTemplateSelector" DatabaseTemplate="{StaticResource DatabaseTemplate}" TablesGroupTemplate="{StaticResource TablesGroupTemplate}" TableTemplate="{StaticResource TableTemplate}" 
+                                             ViewsGroupTemplate="{StaticResource ViewsGroupTemplate}" ViewTemplate="{StaticResource ViewTemplate}" FieldTemplate="{StaticResource FieldTemplate}" />
+    </Page.Resources>
 
     <Grid ColumnSpacing="16">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        
-        <Border Grid.Column="0" Background="{StaticResource CardBackgroundFillColorDefault}" BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1" CornerRadius="{StaticResource ControlCornerRadius}">
-            <TreeView ItemsSource="{x:Bind ViewModel.Nodes}" CanDragItems="False" AllowDrop="False">
-                <TreeView.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Add connection" />
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <DropDownButton Grid.Row="0" Margin="0,0,0,4">
+                <DropDownButton.Content>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE701;" />
+                        <TextBlock x:Uid="Database" />
+                    </StackPanel>
+                </DropDownButton.Content>
+                <DropDownButton.Flyout>
+                    <MenuFlyout Placement="Bottom">
+                        <MenuFlyoutItem x:Uid="AddDatabase" Command="{x:Bind ViewModel.AddDatabaseFlyoutCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE710;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem x:Uid="ImportDatabase">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE8B5;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem x:Uid="RefreshDatabaseList" Command="{x:Bind ViewModel.RefreshDatabaseListCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE72C;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
-                </TreeView.ContextFlyout>
-            </TreeView>
-        </Border>
-        
+
+                </DropDownButton.Flyout>
+            </DropDownButton>
+            <Border Grid.Row="1" Background="{StaticResource CardBackgroundFillColorDefault}" BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1" CornerRadius="{StaticResource ControlCornerRadius}">
+                <TreeView ItemsSource="{x:Bind ViewModel.DataSource, Mode=OneWay}" CanDragItems="False" AllowDrop="False" ItemTemplateSelector="{StaticResource DatabaseTreeItemTemplateSelector}" />
+            </Border>
+        </Grid>
+
         <Grid Grid.Column="1" RowSpacing="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -40,28 +148,22 @@
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon Glyph="&#xE768;" />
-                            <TextBlock Text="Execute" />
+                            <TextBlock x:Uid="Execute" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
                 <TextBox Grid.Row="1" AcceptsReturn="True" />
-            </Grid>            
+            </Grid>
             <TextBlock Grid.Row="1" />
-            
-            <controls:GridSplitter Grid.Row="1"
-                               Height="16"
-                               VerticalAlignment="Top">
+
+            <controls:GridSplitter Grid.Row="1" Height="16" VerticalAlignment="Top">
                 <controls:GridSplitter.RenderTransform>
                     <TranslateTransform Y="-16" />
                 </controls:GridSplitter.RenderTransform>
             </controls:GridSplitter>
         </Grid>
 
-        <controls:GridSplitter Grid.Column="1"
-                               Width="16"
-                               HorizontalAlignment="Left"
-                               ResizeBehavior="BasedOnAlignment"
-                               ResizeDirection="Auto">
+        <controls:GridSplitter Grid.Column="1" Width="16" HorizontalAlignment="Left" ResizeBehavior="BasedOnAlignment" ResizeDirection="Auto">
             <controls:GridSplitter.RenderTransform>
                 <TranslateTransform X="-16" />
             </controls:GridSplitter.RenderTransform>

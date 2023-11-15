@@ -1,18 +1,40 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
+using SQLiteFluent.Models;
+using SQLiteFluent.Services;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SQLiteFluent.ViewModels
 {
-	public class MainViewModel
+	public class MainViewModel : ObservableObject
 	{
-		public ObservableCollection<TreeViewNode> Nodes { get; private set; }
+		public ObservableCollection<DatabaseTreeItem> DataSource { get; private set; }
+
+		public ICommand AddDatabaseFlyoutCommand { get; private set; }
+		public ICommand RefreshDatabaseListCommand { get; private set; }
 
 		public MainViewModel()
 		{
-			Nodes = new ObservableCollection<TreeViewNode>
+			RefreshDatabaseList();
+			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
+			RefreshDatabaseListCommand = new RelayCommand(RefreshDatabaseList);
+		}
+		private async void AddDatabaseAsync()
+		{
+			if (await DialogService.AddDatabaseAsync() == ContentDialogResult.Primary)
 			{
-				new TreeViewNode() { Content = "Databases" }
-			};
+				RefreshDatabaseList();
+			}
+		}
+
+
+		private void RefreshDatabaseList()
+		{
+			DataSource = DataAccess.GetAllData();
+			OnPropertyChanged(nameof(DataSource));
 		}
 	}
 }

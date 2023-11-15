@@ -3,18 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteFluent", "SQLiteFluent\SQLiteFluent.csproj", "{519A2FA6-DE09-42FA-8B31-CA5DBA842695}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLiteFluent", "SQLiteFluent\SQLiteFluent.csproj", "{519A2FA6-DE09-42FA-8B31-CA5DBA842695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteFluent.Core", "SQLiteFluent.Core\SQLiteFluent.Core.csproj", "{ABED56CC-A797-4140-8DA0-E358E11FD0C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM64 = Release|ARM64
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|Any CPU.Build.0 = Debug|x64
+		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|ARM64.ActiveCfg = Debug|ARM64
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|ARM64.Build.0 = Debug|ARM64
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|ARM64.Deploy.0 = Debug|ARM64
@@ -24,6 +31,9 @@ Global
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|x86.ActiveCfg = Debug|x86
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|x86.Build.0 = Debug|x86
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Debug|x86.Deploy.0 = Debug|x86
+		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|Any CPU.ActiveCfg = Release|x64
+		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|Any CPU.Build.0 = Release|x64
+		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|Any CPU.Deploy.0 = Release|x64
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|ARM64.ActiveCfg = Release|ARM64
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|ARM64.Build.0 = Release|ARM64
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|ARM64.Deploy.0 = Release|ARM64
@@ -33,6 +43,22 @@ Global
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|x86.ActiveCfg = Release|x86
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|x86.Build.0 = Release|x86
 		{519A2FA6-DE09-42FA-8B31-CA5DBA842695}.Release|x86.Deploy.0 = Release|x86
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|ARM64.Build.0 = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|x64.Build.0 = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{ABED56CC-A797-4140-8DA0-E358E11FD0C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
