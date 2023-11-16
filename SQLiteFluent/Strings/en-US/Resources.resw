@@ -132,6 +132,9 @@
   <data name="AddDatabaseDialogTitle" xml:space="preserve">
     <value>Add database</value>
   </data>
+  <data name="AddTableFlyout.Text" xml:space="preserve">
+    <value>Add table</value>
+  </data>
   <data name="ApplicationName" xml:space="preserve">
     <value>SQLiteFluent</value>
   </data>

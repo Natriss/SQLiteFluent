@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SQLiteFluent.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.Controls" xmlns:models="using:SQLiteFluent.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:models="using:SQLiteFluent.Models"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="DatabaseTemplate" x:DataType="models:DatabaseTreeItem">
@@ -37,11 +39,6 @@
 
         <DataTemplate x:Key="TableTemplate" x:DataType="models:DatabaseTreeItem">
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
-                <TreeViewItem.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="DeleteTable" Icon="Delete" />
-                    </MenuFlyout>
-                </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
                     <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
@@ -138,23 +135,42 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid>
+            <Grid RowSpacing="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Margin="0,0,0,4" Style="{StaticResource AccentButtonStyle}">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon Glyph="&#xE768;" />
-                            <TextBlock x:Uid="Execute" />
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <TextBox Grid.Row="1" AcceptsReturn="True" />
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="4">
+                    <Button Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.ExecuteQueryCommand}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE768;" />
+                                <TextBlock x:Uid="Execute" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <ComboBox ItemsSource="{x:Bind ViewModel.ComboboxItemSource, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedComboboxItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:Database" >
+                                <TextBlock Text="{x:Bind Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <TextBox Grid.Row="1" AcceptsReturn="True" Text="{x:Bind ViewModel.Query, Mode=TwoWay}" />
             </Grid>
-            <TextBlock Grid.Row="1" />
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{x:Bind ViewModel.Tables, Mode=OneWay}" />
+                <ScrollViewer Grid.Row="1">
+                    <TextBlock Text="{x:Bind ViewModel.Rows, Mode=OneWay}" />
+                </ScrollViewer>
+            </Grid>
 
             <controls:GridSplitter Grid.Row="1" Height="16" VerticalAlignment="Top">
                 <controls:GridSplitter.RenderTransform>

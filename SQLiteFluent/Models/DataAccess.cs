@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using SQLiteFluent.Core.Interfaces;
 using SQLiteFluent.Enums;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace SQLiteFluent.Models
 				Type = TreeType.TablesGroup,
 			};
 
-			ObservableCollection<DatabaseTreeItem> tableItems = new ObservableCollection<DatabaseTreeItem>();
+			ObservableCollection<DatabaseTreeItem> tableItems = new();
 			while (getAllTablesDataReader.Read())
 			{
 				DatabaseTreeItem databaseTreeItem = new()
@@ -69,13 +70,15 @@ namespace SQLiteFluent.Models
 
 		private static ObservableCollection<DatabaseTreeItem> GetDatabaseTableFields(string tableName, SqliteConnection db)
 		{
-			SqliteCommand getAllFieldsCommand = new();
-			getAllFieldsCommand.Connection = db;
-			getAllFieldsCommand.CommandText = $"PRAGMA table_info({tableName});";
+			SqliteCommand getAllFieldsCommand = new()
+			{
+				Connection = db,
+				CommandText = $"PRAGMA table_info({tableName});"
+			};
 			getAllFieldsCommand.Prepare();
 			SqliteDataReader getAllFieldsDataReader = getAllFieldsCommand.ExecuteReader();
 
-			ObservableCollection<DatabaseTreeItem> fieldItems = new ObservableCollection<DatabaseTreeItem>();
+			ObservableCollection<DatabaseTreeItem> fieldItems = new();
 			while (getAllFieldsDataReader.Read())
 			{
 				DatabaseTreeItem databaseTreeItem = new()
@@ -104,6 +107,54 @@ namespace SQLiteFluent.Models
 				list.Add(rootItem);
 			}
 			return list;
+		}
+
+		public static ObservableCollection<Database> GetAvailableDatabases()
+		{
+			ObservableCollection<Database> list = new();
+			List<string> dbPaths = Directory.EnumerateFiles(ApplicationData.Current.LocalFolder.Path, "*", SearchOption.TopDirectoryOnly).Where(search => search.EndsWith(".db")).ToList();
+
+			foreach (string dbPath in dbPaths)
+			{
+				list.Add(new Database() { Name = dbPath.Split("\\").ToList().Last().Split('.').ToList()[0], Path = dbPath });
+			}
+			return list;
+		}
+
+		public static Table ExecuteAnyQuery(string dbpath, string query)
+		{
+			using SqliteConnection db = new($"Filename={dbpath}");
+			db.Open();
+			SqliteCommand command = new(query, db);
+			SqliteDataReader sqliteDataReader = command.ExecuteReader();
+
+			List<string> tableNames = new();
+			Dictionary<int, List<string>> rows = null;
+
+			for (int i = 0; i < sqliteDataReader.FieldCount; i++)
+			{
+				tableNames.Add(sqliteDataReader.GetName(i));
+			}
+
+			int row = 1;
+			while (sqliteDataReader.Read())
+			{
+				if (rows == null)
+				{
+					rows = new Dictionary<int, List<string>>();
+				}
+
+				List<string> values = new();
+				for (int i = 0; i < sqliteDataReader.FieldCount; i++)
+				{
+					values.Add(sqliteDataReader.IsDBNull(i) == true ? "" : sqliteDataReader.GetString(i));
+				}
+
+				rows.Add(row, values);
+				row++;
+			}
+
+			return new Table() { Tables = tableNames, Rows = rows };
 		}
 	}
 }

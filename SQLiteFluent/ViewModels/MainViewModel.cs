@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using SQLiteFluent.Models;
 using SQLiteFluent.Services;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SQLiteFluent.ViewModels
@@ -12,10 +11,35 @@ namespace SQLiteFluent.ViewModels
 	public class MainViewModel : ObservableObject
 	{
 		public ObservableCollection<DatabaseTreeItem> DataSource { get; private set; }
+		public ObservableCollection<Database> ComboboxItemSource { get; private set; }
+		private Database _selectedComboboxItem;
+
+		public Database SelectedComboboxItem
+		{
+			get { return _selectedComboboxItem; }
+			set
+			{
+				if (_selectedComboboxItem != value)
+				{
+					_selectedComboboxItem = value;
+				}
+				ExecuteQueryCommand.NotifyCanExecuteChanged();
+			}
+		}
+		private string _query;
+
+		public string Query
+		{
+			get { return _query; }
+			set { _query = value; OnPropertyChanged(nameof(Query)); ExecuteQueryCommand.NotifyCanExecuteChanged(); }
+		}
+		public string Tables { get; set; }
+		public string Rows { get; set; }
 
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
 		public ICommand RefreshDatabaseListCommand { get; private set; }
+		public IRelayCommand ExecuteQueryCommand { get; private set; }
 
 		public MainViewModel()
 		{
@@ -23,6 +47,7 @@ namespace SQLiteFluent.ViewModels
 			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
 			RefreshDatabaseListCommand = new RelayCommand(RefreshDatabaseList);
+			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
 		}
 		private async void AddDatabaseAsync()
 		{
@@ -44,6 +69,18 @@ namespace SQLiteFluent.ViewModels
 		{
 			DataSource = DataAccess.GetAllData();
 			OnPropertyChanged(nameof(DataSource));
+			ComboboxItemSource = DataAccess.GetAvailableDatabases();
+			OnPropertyChanged(nameof(ComboboxItemSource));
+		}
+
+		private void ExecuteQuery()
+		{
+			Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
+			Tables = table.TablesToString();
+			OnPropertyChanged(nameof(Tables));
+			Rows = table.RowsToString();
+			OnPropertyChanged(nameof(Rows));
+
 		}
 	}
 }
