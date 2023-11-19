@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
+using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using SQLiteFluent.Services;
 using System.Collections.ObjectModel;
@@ -43,7 +44,8 @@ namespace SQLiteFluent.ViewModels
 
 		public MainViewModel()
 		{
-			App.DataSource = DataAccess.GetAllData();
+			AppHelpers.DataSource = DataAccess.GetAllData();
+			AppHelpers.Databases = DataAccess.GetAvailableDatabases();
 			RefreshDatabaseList();
 			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
@@ -68,9 +70,9 @@ namespace SQLiteFluent.ViewModels
 
 		private void RefreshDatabaseList()
 		{
-			DataSource = App.DataSource;
+			DataSource = AppHelpers.DataSource;
 			OnPropertyChanged(nameof(DataSource));
-			ComboboxItemSource = DataAccess.GetAvailableDatabases();
+			ComboboxItemSource = AppHelpers.Databases;
 			OnPropertyChanged(nameof(ComboboxItemSource));
 		}
 

@@ -14,7 +14,7 @@ namespace SQLiteFluent.Services
 		{
 			ContentDialog contentDialog = new()
 			{
-				XamlRoot = App.Root.XamlRoot,
+				XamlRoot = AppHelpers.Root.XamlRoot,
 				Title = "AddDatabaseDialogTitle".GetLocalized(),
 				Content = new AddDatabaseDialog(),
 				PrimaryButtonText = "AddDatabaseDialogPrimaryBtn".GetLocalized(),
@@ -38,7 +38,7 @@ namespace SQLiteFluent.Services
 		{
 			ContentDialog contentDialog = new()
 			{
-				XamlRoot = App.Root.XamlRoot,
+				XamlRoot = AppHelpers.Root.XamlRoot,
 				Title = "ImportDatabaseDialogTitle".GetLocalized(),
 				Content = new ImportDatabaseDialog(),
 				PrimaryButtonText = "ImportDatabaseDialogPrimaryBtn".GetLocalized(),

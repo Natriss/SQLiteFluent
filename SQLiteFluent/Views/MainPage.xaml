@@ -35,7 +35,7 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="DeleteChilds" Command="{x:Bind ClearChildsCommand}" />
+                        <MenuFlyoutItem Text="Delete table" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}"/>
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">

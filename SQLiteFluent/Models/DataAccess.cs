@@ -43,7 +43,7 @@ namespace SQLiteFluent.Models
 			return databaseTreeItem;
 		}
 
-		private static DatabaseTreeItem GetDatabaseTableChilds(SqliteConnection db)
+		private static DatabaseTreeItem GetDatabaseTableChilds(SqliteConnection db, DatabaseTreeItem rootItem)
 		{
 			SqliteCommand getAllTablesCommand = new("SELECT * FROM sqlite_master where type='table';", db);
 			SqliteDataReader getAllTablesDataReader = getAllTablesCommand.ExecuteReader();
@@ -60,6 +60,7 @@ namespace SQLiteFluent.Models
 				{
 					Name = getAllTablesDataReader.GetString(1),
 					Type = TreeType.Table,
+					DataBase = rootItem,
 				};
 				databaseTreeItem.Children = GetDatabaseTableFields(databaseTreeItem.Name, db);
 				tableItems.Add(databaseTreeItem);
@@ -102,9 +103,11 @@ namespace SQLiteFluent.Models
 				db.Open();
 
 				DatabaseTreeItem rootItem = GetDatabaseTreeItem(database);
-				DatabaseTreeItem tableGroup = GetDatabaseTableChilds(db);
+				DatabaseTreeItem tableGroup = GetDatabaseTableChilds(db, rootItem);
 				rootItem.Children = new ObservableCollection<DatabaseTreeItem> { tableGroup };
 				list.Add(rootItem);
+
+				db.Dispose();
 			}
 			return list;
 		}
@@ -151,7 +154,17 @@ namespace SQLiteFluent.Models
 				row++;
 			}
 
+			db.Dispose();
 			return new Table() { Tables = tableNames, Rows = rows };
+		}
+
+		internal static void DeleteTable(Database db, string tableName)
+		{
+			using SqliteConnection sqliteConnection = new($"Filename={db.Path}");
+			sqliteConnection.Open();
+			SqliteCommand cmd = new($"drop TABLE {tableName};", sqliteConnection);
+			cmd.ExecuteNonQuery();
+			sqliteConnection.Dispose();
 		}
 	}
 }

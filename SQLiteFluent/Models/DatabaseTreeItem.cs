@@ -1,17 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SQLiteFluent.Enums;
+using SQLiteFluent.Helpers;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Linq;
 
 namespace SQLiteFluent.Models
 {
 	public class DatabaseTreeItem : ObservableObject
 	{
 		public TreeType Type { get; set; }
+		public DatabaseTreeItem DataBase { get; set; }
 		public string Name { get; set; }
 		public string FieldType { get; set; }
-		public IRelayCommand ClearChildsCommand { get; set; }
+		public IRelayCommand DeleteTableCommand { get; set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
 		public ObservableCollection<DatabaseTreeItem> Children
@@ -49,12 +51,16 @@ namespace SQLiteFluent.Models
 
 		public DatabaseTreeItem()
 		{
-			ClearChildsCommand = new RelayCommand(ClearChilds);
+			DeleteTableCommand = new RelayCommand<object>(DeleteTable);
 		}
 
-		private void ClearChilds()
+		private void DeleteTable(object sender)
 		{
-			_children.Clear();
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+			DataAccess.DeleteTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
+			AppHelpers.DataSource[indexDatabase].Children[0].Children.Remove(selectedItem);
+
 		}
 	}
 }

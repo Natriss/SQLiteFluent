@@ -1,6 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
-using SQLiteFluent.Models;
-using System.Collections.ObjectModel;
+using SQLiteFluent.Helpers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -14,8 +13,6 @@ namespace SQLiteFluent
 	{
 		private Window _window;
 
-		public static FrameworkElement Root;
-		public static ObservableCollection<DatabaseTreeItem> DataSource { get; set; } = new();
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code
 		/// executed, and as such is the logical equivalent of main() or WinMain().
@@ -32,7 +29,7 @@ namespace SQLiteFluent
 		protected override void OnLaunched(LaunchActivatedEventArgs args)
 		{
 			_window = new MainWindow();
-			Root = _window.Content as FrameworkElement;
+			AppHelpers.Root = _window.Content as FrameworkElement;
 			_window.Activate();
 		}
 	}
