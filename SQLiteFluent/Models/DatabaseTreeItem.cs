@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SQLiteFluent.Enums;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace SQLiteFluent.Models
 {
@@ -9,8 +11,9 @@ namespace SQLiteFluent.Models
 		public TreeType Type { get; set; }
 		public string Name { get; set; }
 		public string FieldType { get; set; }
-		private ObservableCollection<DatabaseTreeItem> _children;
+		public IRelayCommand ClearChildsCommand { get; set; }
 
+		private ObservableCollection<DatabaseTreeItem> _children;
 		public ObservableCollection<DatabaseTreeItem> Children
 		{
 			get
@@ -28,7 +31,6 @@ namespace SQLiteFluent.Models
 		}
 
 		private bool _isExpanded = false;
-
 		public bool IsExpanded
 		{
 			get
@@ -43,6 +45,16 @@ namespace SQLiteFluent.Models
 					OnPropertyChanged(nameof(IsExpanded));
 				}
 			}
+		}
+
+		public DatabaseTreeItem()
+		{
+			ClearChildsCommand = new RelayCommand(ClearChilds);
+		}
+
+		private void ClearChilds()
+		{
+			_children.Clear();
 		}
 	}
 }

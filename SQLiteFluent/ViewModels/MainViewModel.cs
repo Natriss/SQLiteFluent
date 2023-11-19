@@ -43,6 +43,7 @@ namespace SQLiteFluent.ViewModels
 
 		public MainViewModel()
 		{
+			App.DataSource = DataAccess.GetAllData();
 			RefreshDatabaseList();
 			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
@@ -67,7 +68,7 @@ namespace SQLiteFluent.ViewModels
 
 		private void RefreshDatabaseList()
 		{
-			DataSource = DataAccess.GetAllData();
+			DataSource = App.DataSource;
 			OnPropertyChanged(nameof(DataSource));
 			ComboboxItemSource = DataAccess.GetAvailableDatabases();
 			OnPropertyChanged(nameof(ComboboxItemSource));

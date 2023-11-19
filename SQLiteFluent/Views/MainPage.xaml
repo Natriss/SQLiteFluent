@@ -12,12 +12,6 @@
     <Page.Resources>
         <DataTemplate x:Key="DatabaseTemplate" x:DataType="models:DatabaseTreeItem">
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
-                <TreeViewItem.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="ClearDatabase" Icon="Clear" />
-                        <MenuFlyoutItem x:Uid="DeleteDatabase" Icon="Delete" />
-                    </MenuFlyout>
-                </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
                     <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
@@ -39,6 +33,11 @@
 
         <DataTemplate x:Key="TableTemplate" x:DataType="models:DatabaseTreeItem">
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <TreeViewItem.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="DeleteChilds" Command="{x:Bind ClearChildsCommand}" />
+                    </MenuFlyout>
+                </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
                     <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
