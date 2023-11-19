@@ -139,10 +139,7 @@ namespace SQLiteFluent.Models
 			int row = 1;
 			while (sqliteDataReader.Read())
 			{
-				if (rows == null)
-				{
-					rows = new Dictionary<int, List<string>>();
-				}
+				rows ??= new Dictionary<int, List<string>>();
 
 				List<string> values = new();
 				for (int i = 0; i < sqliteDataReader.FieldCount; i++)

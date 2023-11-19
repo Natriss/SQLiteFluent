@@ -159,7 +159,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
-                <TextBox Grid.Row="1" AcceptsReturn="True" Text="{x:Bind ViewModel.Query, Mode=TwoWay}" />
+                <TextBox Grid.Row="1" AcceptsReturn="True" Text="{x:Bind ViewModel.Query, Mode=TwoWay}" FontFamily="Cascadia Mono" IsSpellCheckEnabled="False" />
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -171,7 +171,6 @@
                     <TextBlock Text="{x:Bind ViewModel.Rows, Mode=OneWay}" />
                 </ScrollViewer>
             </Grid>
-
             <controls:GridSplitter Grid.Row="1" Height="16" VerticalAlignment="Top">
                 <controls:GridSplitter.RenderTransform>
                     <TranslateTransform Y="-16" />
