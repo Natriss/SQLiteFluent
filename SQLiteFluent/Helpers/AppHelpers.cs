@@ -8,7 +8,7 @@ namespace SQLiteFluent.Helpers
 	{
 
 		public static FrameworkElement Root {  get; set; }
-		public static ObservableCollection<DatabaseTreeItem> DataSource { get; set; } = new();
-		public static ObservableCollection<Database> Databases { get; set; } = new();
+		public static ObservableCollection<DatabaseTreeItem> DataSource { get; set; } = DataAccess.GetAllData();
+		public static ObservableCollection<Database> Databases { get; set; } = DataAccess.GetAvailableDatabases();
 	}
 }

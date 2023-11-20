@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
-using SQLiteFluent.Core.Interfaces;
 using SQLiteFluent.Enums;
+using SQLiteFluent.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +12,17 @@ namespace SQLiteFluent.Models
 {
 	public static class DataAccess
 	{
+		private static SqliteConnection GetConnection(string databaseName, bool isAlreadyPath = false)
+		{
+			string db = isAlreadyPath ? databaseName : GetDatabasePath(databaseName);
+			return new SqliteConnection($"Filename={db}");
+		}
+
+		private static string GetDatabasePath(string databaseName)
+		{
+			return Path.Combine(ApplicationData.Current.LocalFolder.Path, $"{databaseName}.db");
+		}
+
 		public static async void CreateDatabase(string name)
 		{
 			await ApplicationData.Current.LocalFolder.CreateFileAsync($"{name}.db", CreationCollisionOption.OpenIfExists);
@@ -25,8 +36,9 @@ namespace SQLiteFluent.Models
 
 		public static void DeleteDatabase(string name)
 		{
-			string pathDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, $"{name}.db");
-			File.Delete(pathDB);
+			SqliteConnection.ClearPool(GetConnection(name));
+			File.Delete(GetDatabasePath(name));
+			RefreshDatabases();
 		}
 
 		private static DatabaseTreeItem GetDatabaseTreeItem(string dbPath)
@@ -99,7 +111,7 @@ namespace SQLiteFluent.Models
 			List<string> databases = Directory.EnumerateFiles(ApplicationData.Current.LocalFolder.Path, "*", SearchOption.TopDirectoryOnly).Where(search => search.EndsWith(".db")).ToList();
 			foreach (string database in databases)
 			{
-				using SqliteConnection db = new($"Filename={database}");
+				using SqliteConnection db = GetConnection(database, true);
 				db.Open();
 
 				DatabaseTreeItem rootItem = GetDatabaseTreeItem(database);
@@ -126,7 +138,7 @@ namespace SQLiteFluent.Models
 
 		public static Table ExecuteAnyQuery(string dbpath, string query)
 		{
-			using SqliteConnection db = new($"Filename={dbpath}");
+			using SqliteConnection db = GetConnection(dbpath);
 			db.Open();
 			SqliteCommand command = new(query, db);
 			SqliteDataReader sqliteDataReader = command.ExecuteReader();
@@ -158,13 +170,90 @@ namespace SQLiteFluent.Models
 			return new Table() { Tables = tableNames, Rows = rows };
 		}
 
-		internal static void DeleteTable(Database db, string tableName)
+		public static void DeleteTable(Database db, string tableName)
 		{
-			using SqliteConnection sqliteConnection = new($"Filename={db.Path}");
+			using SqliteConnection sqliteConnection = GetConnection(db.Path);
 			sqliteConnection.Open();
 			SqliteCommand cmd = new($"drop TABLE {tableName};", sqliteConnection);
 			cmd.ExecuteNonQuery();
 			sqliteConnection.Dispose();
+		}
+
+		public static void RefreshTables(DatabaseTreeItem selectedItem)
+		{
+			
+			//SqliteCommand getAllTablesCommand = new("SELECT * FROM sqlite_master where type='table';", db);
+			//SqliteDataReader getAllTablesDataReader = getAllTablesCommand.ExecuteReader();
+
+			//DatabaseTreeItem tableGroup = new()
+			//{
+			//	Type = TreeType.TablesGroup,
+			//};
+
+			//ObservableCollection<DatabaseTreeItem> tableItems = new();
+			//while (getAllTablesDataReader.Read())
+			//{
+			//	DatabaseTreeItem databaseTreeItem = new()
+			//	{
+			//		Name = getAllTablesDataReader.GetString(1),
+			//		Type = TreeType.Table,
+			//		DataBase = rootItem,
+			//	};
+			//	databaseTreeItem.Children = GetDatabaseTableFields(databaseTreeItem.Name, db);
+			//	tableItems.Add(databaseTreeItem);
+			//}
+			//tableGroup.Children = tableItems;
+			//return tableGroup;
+		}
+
+		public static void RefreshDatabases()
+		{
+			RefreshDatabasesList();
+			RefreshDatabaseTreeView();
+		}
+
+		private static void RefreshDatabasesList()
+		{
+			ObservableCollection<Database> newDatabasesList = GetAvailableDatabases();
+			List<Database> oldDatabasesList = AppHelpers.Databases.ToList();
+			foreach (Database db in oldDatabasesList)
+			{
+				if (newDatabasesList.Contains(db))
+				{
+					continue;
+				}
+				AppHelpers.Databases.Remove(db);
+			}
+			foreach (Database db in newDatabasesList)
+			{
+				if (oldDatabasesList.Contains(db))
+				{
+					continue;
+				}
+				AppHelpers.Databases.Add(db);
+			}
+		}
+
+		private static void RefreshDatabaseTreeView()
+		{
+			ObservableCollection<DatabaseTreeItem> newList = GetAllData();
+			List<DatabaseTreeItem> oldList = AppHelpers.DataSource.ToList();
+			foreach (DatabaseTreeItem db in oldList)
+			{
+				if (newList.Contains(db))
+				{
+					continue;
+				}
+				AppHelpers.DataSource.Remove(db);
+			}
+			foreach (DatabaseTreeItem db in newList)
+			{
+				if (oldList.Contains(db))
+				{
+					continue;
+				}
+				AppHelpers.DataSource.Add(db);
+			}
 		}
 	}
 }

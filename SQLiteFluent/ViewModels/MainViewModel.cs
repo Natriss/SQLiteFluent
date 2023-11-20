@@ -11,8 +11,8 @@ namespace SQLiteFluent.ViewModels
 {
 	public class MainViewModel : ObservableObject
 	{
-		public ObservableCollection<DatabaseTreeItem> DataSource { get; private set; }
-		public ObservableCollection<Database> ComboboxItemSource { get; private set; }
+		public ObservableCollection<DatabaseTreeItem> DataSource { get; private set; } = AppHelpers.DataSource;
+		public ObservableCollection<Database> ComboboxItemSource { get; private set; } = AppHelpers.Databases;
 		private Database _selectedComboboxItem;
 
 		public Database SelectedComboboxItem
@@ -39,24 +39,19 @@ namespace SQLiteFluent.ViewModels
 
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
-		public ICommand RefreshDatabaseListCommand { get; private set; }
 		public IRelayCommand ExecuteQueryCommand { get; private set; }
 
 		public MainViewModel()
 		{
-			AppHelpers.DataSource = DataAccess.GetAllData();
-			AppHelpers.Databases = DataAccess.GetAvailableDatabases();
-			RefreshDatabaseList();
 			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
-			RefreshDatabaseListCommand = new RelayCommand(RefreshDatabaseList);
 			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
 		}
 		private async void AddDatabaseAsync()
 		{
 			if (await DialogService.AddDatabaseAsync() == ContentDialogResult.Primary)
 			{
-				RefreshDatabaseList();
+				DataAccess.RefreshDatabases();
 			}
 		}
 
@@ -64,16 +59,8 @@ namespace SQLiteFluent.ViewModels
 		{
 			if (await DialogService.ImportDatabaseAsync() == ContentDialogResult.Primary)
 			{
-				RefreshDatabaseList();
+				DataAccess.RefreshDatabases();
 			}
-		}
-
-		private void RefreshDatabaseList()
-		{
-			DataSource = AppHelpers.DataSource;
-			OnPropertyChanged(nameof(DataSource));
-			ComboboxItemSource = AppHelpers.Databases;
-			OnPropertyChanged(nameof(ComboboxItemSource));
 		}
 
 		private void ExecuteQuery()

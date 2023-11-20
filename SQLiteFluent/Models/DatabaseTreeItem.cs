@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SQLiteFluent.Enums;
 using SQLiteFluent.Helpers;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,6 +14,7 @@ namespace SQLiteFluent.Models
 		public DatabaseTreeItem DataBase { get; set; }
 		public string Name { get; set; }
 		public string FieldType { get; set; }
+		public IRelayCommand DeleteDatabaseCommand { get; set; }
 		public IRelayCommand DeleteTableCommand { get; set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
@@ -51,7 +53,15 @@ namespace SQLiteFluent.Models
 
 		public DatabaseTreeItem()
 		{
+			DeleteDatabaseCommand = new RelayCommand<object>(DeleteDatabase);
 			DeleteTableCommand = new RelayCommand<object>(DeleteTable);
+		}
+
+		private void DeleteDatabase(object sender)
+		{
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			IEnumerable<Database> db = AppHelpers.Databases.Where(x => x.Name == selectedItem.Name);
+			DataAccess.DeleteDatabase(selectedItem.Name);
 		}
 
 		private void DeleteTable(object sender)
@@ -60,7 +70,26 @@ namespace SQLiteFluent.Models
 			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
 			DataAccess.DeleteTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
 			AppHelpers.DataSource[indexDatabase].Children[0].Children.Remove(selectedItem);
+		}
 
+		private void RefreshTables(object sender)
+		{
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			DataAccess.RefreshTables(selectedItem);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if ((DatabaseTreeItem)obj == null)
+			{
+				return false;
+			}
+			return this.Name == ((DatabaseTreeItem)obj).Name;
+		}
+
+		public override int GetHashCode()
+		{
+			return (Name + Type.ToString() + FieldType).GetHashCode();
 		}
 	}
 }

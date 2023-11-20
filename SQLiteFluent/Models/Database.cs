@@ -19,5 +19,19 @@ namespace SQLiteFluent.Models
 			get { return _path; }
 			set { _path = value; OnPropertyChanged(nameof(Path)); }
 		}
+
+		public override bool Equals(object obj)
+		{
+			if ((Database)obj == null)
+			{
+				return false;
+			}
+			return this.Name == ((Database)obj).Name;
+		}
+
+		public override int GetHashCode()
+		{
+			return Name.GetHashCode();
+		}
 	}
 }

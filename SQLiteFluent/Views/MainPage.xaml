@@ -12,6 +12,11 @@
     <Page.Resources>
         <DataTemplate x:Key="DatabaseTemplate" x:DataType="models:DatabaseTreeItem">
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
+                <TreeViewItem.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Delete database" Command="{x:Bind DeleteDatabaseCommand}" CommandParameter="{x:Bind}"/>
+                    </MenuFlyout>
+                </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
                     <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
@@ -113,14 +118,7 @@
                                 <FontIcon Glyph="&#xE8B5;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutSeparator />
-                        <MenuFlyoutItem x:Uid="RefreshDatabaseList" Command="{x:Bind ViewModel.RefreshDatabaseListCommand}">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE72C;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                     </MenuFlyout>
-
                 </DropDownButton.Flyout>
             </DropDownButton>
             <Border Grid.Row="1" Background="{StaticResource CardBackgroundFillColorDefault}" BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1" CornerRadius="{StaticResource ControlCornerRadius}">
