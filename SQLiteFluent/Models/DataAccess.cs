@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using SQLiteFluent.Core.Interfaces;
 using SQLiteFluent.Enums;
 using SQLiteFluent.Helpers;
 using System;
@@ -63,6 +64,7 @@ namespace SQLiteFluent.Models
 			DatabaseTreeItem tableGroup = new()
 			{
 				Type = TreeType.TablesGroup,
+				DataBase = rootItem,
 			};
 
 			ObservableCollection<DatabaseTreeItem> tableItems = new();
@@ -138,72 +140,48 @@ namespace SQLiteFluent.Models
 
 		public static Table ExecuteAnyQuery(string dbpath, string query)
 		{
-			using SqliteConnection db = GetConnection(dbpath);
+			using SqliteConnection db = GetConnection(dbpath, true);
 			db.Open();
 			SqliteCommand command = new(query, db);
 			SqliteDataReader sqliteDataReader = command.ExecuteReader();
 
 			List<string> tableNames = new();
-			Dictionary<int, List<string>> rows = null;
-
 			for (int i = 0; i < sqliteDataReader.FieldCount; i++)
 			{
 				tableNames.Add(sqliteDataReader.GetName(i));
 			}
 
-			int row = 1;
+			List<List<object>> rows = new();
 			while (sqliteDataReader.Read())
 			{
-				rows ??= new Dictionary<int, List<string>>();
-
-				List<string> values = new();
+				List<object> row = new();
 				for (int i = 0; i < sqliteDataReader.FieldCount; i++)
 				{
-					values.Add(sqliteDataReader.IsDBNull(i) == true ? "" : sqliteDataReader.GetString(i));
+					row.Add(sqliteDataReader.IsDBNull(i) == true ? null : sqliteDataReader.GetValue(i));
 				}
-
-				rows.Add(row, values);
-				row++;
+				rows.Add(row);
 			}
 
 			db.Dispose();
-			return new Table() { Tables = tableNames, Rows = rows };
+			return new Table() { Columns = tableNames, Rows = rows };
 		}
 
 		public static void DeleteTable(Database db, string tableName)
 		{
-			using SqliteConnection sqliteConnection = GetConnection(db.Path);
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
 			sqliteConnection.Open();
 			SqliteCommand cmd = new($"drop TABLE {tableName};", sqliteConnection);
 			cmd.ExecuteNonQuery();
 			sqliteConnection.Dispose();
 		}
 
-		public static void RefreshTables(DatabaseTreeItem selectedItem)
+		public static ObservableCollection<DatabaseTreeItem> RefreshTables(DatabaseTreeItem selectedItem)
 		{
-			
-			//SqliteCommand getAllTablesCommand = new("SELECT * FROM sqlite_master where type='table';", db);
-			//SqliteDataReader getAllTablesDataReader = getAllTablesCommand.ExecuteReader();
-
-			//DatabaseTreeItem tableGroup = new()
-			//{
-			//	Type = TreeType.TablesGroup,
-			//};
-
-			//ObservableCollection<DatabaseTreeItem> tableItems = new();
-			//while (getAllTablesDataReader.Read())
-			//{
-			//	DatabaseTreeItem databaseTreeItem = new()
-			//	{
-			//		Name = getAllTablesDataReader.GetString(1),
-			//		Type = TreeType.Table,
-			//		DataBase = rootItem,
-			//	};
-			//	databaseTreeItem.Children = GetDatabaseTableFields(databaseTreeItem.Name, db);
-			//	tableItems.Add(databaseTreeItem);
-			//}
-			//tableGroup.Children = tableItems;
-			//return tableGroup;
+			SqliteConnection sqliteConnection = GetConnection(selectedItem.DataBase.Name);
+			sqliteConnection.Open();
+			ObservableCollection<DatabaseTreeItem> newChilds = GetDatabaseTableChilds(sqliteConnection, selectedItem.DataBase).Children;
+			sqliteConnection.Dispose();
+			return newChilds;
 		}
 
 		public static void RefreshDatabases()

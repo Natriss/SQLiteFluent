@@ -138,6 +138,15 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>SQLiteFluent</value>
   </data>
+  <data name="AskBeforeDeletionDialogTitle" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="AskBeforeDeletionDialogTitleCloseBtn" xml:space="preserve">
+    <value>On second thought</value>
+  </data>
+  <data name="AskBeforeDeletionDialogTitlePrimaryBtn" xml:space="preserve">
+    <value>Yes, I'm sure</value>
+  </data>
   <data name="ClearDatabase.Text" xml:space="preserve">
     <value>Clear database</value>
   </data>
@@ -171,5 +180,8 @@ Existing database will be overwritten.</value>
   </data>
   <data name="RefreshDatabaseList.Text" xml:space="preserve">
     <value>Refresh database list</value>
+  </data>
+  <data name="RefreshTables.Text" xml:space="preserve">
+    <value>Refresh tables</value>
   </data>
 </root>

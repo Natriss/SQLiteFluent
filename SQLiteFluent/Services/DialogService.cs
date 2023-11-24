@@ -57,5 +57,21 @@ namespace SQLiteFluent.Services
 
 			return result;
 		}
+
+		public static async Task<ContentDialogResult> AskBeforeDeletionAsync(string message)
+		{
+			ContentDialog contentDialog = new()
+			{
+				XamlRoot = AppHelpers.Root.XamlRoot,
+				Title = "AskBeforeDeletionDialogTitle".GetLocalized(),
+				Content = new AskBeforeDeletionDialog(message),
+				PrimaryButtonText = "AskBeforeDeletionDialogTitlePrimaryBtn".GetLocalized(),
+				CloseButtonText = "AskBeforeDeletionDialogTitleCloseBtn".GetLocalized(),
+				DefaultButton = ContentDialogButton.Primary,
+			};
+			ContentDialogResult result = await contentDialog.ShowAsync();
+
+			return result;
+		}
 	}
 }

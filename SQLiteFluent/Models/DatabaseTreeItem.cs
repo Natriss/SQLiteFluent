@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SQLiteFluent.Enums;
 using SQLiteFluent.Helpers;
+using SQLiteFluent.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace SQLiteFluent.Models
 		public string FieldType { get; set; }
 		public IRelayCommand DeleteDatabaseCommand { get; set; }
 		public IRelayCommand DeleteTableCommand { get; set; }
+		public IRelayCommand RefreshTablesCommand { get; set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
 		public ObservableCollection<DatabaseTreeItem> Children
@@ -55,27 +57,40 @@ namespace SQLiteFluent.Models
 		{
 			DeleteDatabaseCommand = new RelayCommand<object>(DeleteDatabase);
 			DeleteTableCommand = new RelayCommand<object>(DeleteTable);
+			RefreshTablesCommand = new RelayCommand<object>(RefreshTables);
 		}
 
-		private void DeleteDatabase(object sender)
+		private async void DeleteDatabase(object sender)
 		{
-			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
-			IEnumerable<Database> db = AppHelpers.Databases.Where(x => x.Name == selectedItem.Name);
-			DataAccess.DeleteDatabase(selectedItem.Name);
+			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to delete the database?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{
+				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+				IEnumerable<Database> db = AppHelpers.Databases.Where(x => x.Name == selectedItem.Name);
+				DataAccess.DeleteDatabase(selectedItem.Name);
+			}
 		}
 
-		private void DeleteTable(object sender)
+		private async void DeleteTable(object sender)
 		{
-			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
-			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
-			DataAccess.DeleteTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
-			AppHelpers.DataSource[indexDatabase].Children[0].Children.Remove(selectedItem);
+			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to delete the table?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{
+				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+				DataAccess.DeleteTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
+				AppHelpers.DataSource[indexDatabase].Children[0].Children.Remove(selectedItem);
+			}
 		}
 
 		private void RefreshTables(object sender)
 		{
 			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
-			DataAccess.RefreshTables(selectedItem);
+			ObservableCollection<DatabaseTreeItem> newChilds = DataAccess.RefreshTables(selectedItem);
+			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+			AppHelpers.DataSource[indexDatabase].Children[0].Children.Clear();
+			foreach (DatabaseTreeItem item in newChilds)
+			{
+				AppHelpers.DataSource[indexDatabase].Children[0].Children.Add(item);
+			}
 		}
 
 		public override bool Equals(object obj)

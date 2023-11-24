@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using SQLiteFluent.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -34,8 +35,8 @@ namespace SQLiteFluent.ViewModels
 			get { return _query; }
 			set { _query = value; OnPropertyChanged(nameof(Query)); ExecuteQueryCommand.NotifyCanExecuteChanged(); }
 		}
-		public string Tables { get; set; }
-		public string Rows { get; set; }
+		public List<string> Columns { get; set; }
+		public List<List<object>> Rows { get; set; }
 
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
@@ -66,11 +67,10 @@ namespace SQLiteFluent.ViewModels
 		private void ExecuteQuery()
 		{
 			Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
-			Tables = table.TablesToString();
-			OnPropertyChanged(nameof(Tables));
-			Rows = table.RowsToString();
+			Columns = table.Columns;
+			OnPropertyChanged(nameof(Columns));
+			Rows = table.Rows;
 			OnPropertyChanged(nameof(Rows));
-
 		}
 	}
 }
