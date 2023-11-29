@@ -151,13 +151,13 @@ namespace SQLiteFluent.Models
 				tableNames.Add(sqliteDataReader.GetName(i));
 			}
 
-			List<List<object>> rows = new();
+			List<List<string>> rows = new();
 			while (sqliteDataReader.Read())
 			{
-				List<object> row = new();
+				List<string> row = new();
 				for (int i = 0; i < sqliteDataReader.FieldCount; i++)
 				{
-					row.Add(sqliteDataReader.IsDBNull(i) == true ? null : sqliteDataReader.GetValue(i));
+					row.Add(sqliteDataReader.IsDBNull(i) == true ? null : sqliteDataReader.GetValue(i).ToString());
 				}
 				rows.Add(row);
 			}

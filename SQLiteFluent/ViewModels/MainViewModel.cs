@@ -36,7 +36,7 @@ namespace SQLiteFluent.ViewModels
 			set { _query = value; OnPropertyChanged(nameof(Query)); ExecuteQueryCommand.NotifyCanExecuteChanged(); }
 		}
 		public List<string> Columns { get; set; }
-		public List<List<object>> Rows { get; set; }
+		public List<List<string>> Rows { get; set; }
 
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
