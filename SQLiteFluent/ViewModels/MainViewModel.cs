@@ -35,8 +35,8 @@ namespace SQLiteFluent.ViewModels
 			get { return _query; }
 			set { _query = value; OnPropertyChanged(nameof(Query)); ExecuteQueryCommand.NotifyCanExecuteChanged(); }
 		}
-		public List<string> Columns { get; set; }
-		public List<List<string>> Rows { get; set; }
+		public ObservableCollection<string> Columns { get; set; } = AppHelpers.Columns;
+		public ObservableCollection<ObservableCollection<string>> Rows { get; set; } = AppHelpers.Rows;
 
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
@@ -67,10 +67,7 @@ namespace SQLiteFluent.ViewModels
 		private void ExecuteQuery()
 		{
 			Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
-			Columns = table.Columns;
-			OnPropertyChanged(nameof(Columns));
-			Rows = table.Rows;
-			OnPropertyChanged(nameof(Rows));
+			AppHelpers.FillTable(table.Columns, table.Rows);
 		}
 	}
 }

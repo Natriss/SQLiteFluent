@@ -15,6 +15,7 @@
     <None Remove="Views\Dialogs\AddDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\AskBeforeDeletionDialog.xaml" />
     <None Remove="Views\Dialogs\ImportDatabaseDialog.xaml" />
+    <None Remove="Views\Dialogs\RenameDatabaseDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
   </ItemGroup>
 
@@ -48,6 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SQLiteFluent.Core\SQLiteFluent.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\RenameDatabaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AskBeforeDeletionDialog.xaml">

@@ -14,7 +14,8 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="DeleteDatabase" Command="{x:Bind DeleteDatabaseCommand}" CommandParameter="{x:Bind}"/>
+                        <MenuFlyoutItem x:Uid="RenameDatabase" Command="{x:Bind RenameDatabaseCommand}" CommandParameter="{x:Bind}" />
+                        <MenuFlyoutItem x:Uid="DeleteDatabase" Command="{x:Bind DeleteDatabaseCommand}" CommandParameter="{x:Bind}" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
@@ -28,7 +29,7 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="RefreshTables" Command="{x:Bind RefreshTablesCommand}" CommandParameter="{x:Bind}"/>
+                        <MenuFlyoutItem x:Uid="RefreshTables" Command="{x:Bind RefreshTablesCommand}" CommandParameter="{x:Bind}" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
@@ -45,7 +46,9 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="DeleteTable" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}"/>
+                        <MenuFlyoutItem x:Uid="SelectTop1000Rows" Command="{x:Bind Top1000TableItemsCommand}" CommandParameter="{x:Bind}" />
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem x:Uid="DeleteTable" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
@@ -204,7 +207,7 @@
                         <ItemsControl ItemsSource="{x:Bind ViewModel.Columns, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <controls:UniformGrid Columns="{Binding ViewModel.Columns.Count, Mode=OneWay}" Rows="1" Orientation="Horizontal" />
+                                    <controls:UniformGrid Columns="{Binding Columns.Count, Mode=OneWay}" Rows="1" Orientation="Horizontal" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
@@ -219,7 +222,7 @@
                             <ItemsControl ItemsSource="{Binding}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <controls:UniformGrid Columns="{Binding ViewModel.Columns.Count, Mode=OneWay}" Rows="1" Orientation="Horizontal" />
+                                        <controls:UniformGrid Columns="{Binding Count, Mode=OneWay}" Rows="1" Orientation="Horizontal" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>

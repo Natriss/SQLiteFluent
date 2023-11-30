@@ -184,4 +184,31 @@ Existing database will be overwritten.</value>
   <data name="RefreshTables.Text" xml:space="preserve">
     <value>Refresh tables</value>
   </data>
+  <data name="RenameDatabase.Text" xml:space="preserve">
+    <value>Rename database</value>
+  </data>
+  <data name="RenameDatabaseDialog.Text" xml:space="preserve">
+    <value>Give your database a new name.</value>
+  </data>
+  <data name="RenameDatabaseDialogCloseBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RenameDatabaseDialogPrimaryBtn" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="RenameDatabaseDialogTitle" xml:space="preserve">
+    <value>Rename database</value>
+  </data>
+  <data name="RenameDatabaseNewName.Text" xml:space="preserve">
+    <value>New name:</value>
+  </data>
+  <data name="RenameDatabaseNewName.VerticalAlignment" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="RenameDatabaseOldName.Text" xml:space="preserve">
+    <value>Old name:</value>
+  </data>
+  <data name="SelectTop1000Rows.Text" xml:space="preserve">
+    <value>Select top 1000 rows</value>
+  </data>
 </root>

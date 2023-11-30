@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.Sqlite;
-using SQLiteFluent.Core.Interfaces;
 using SQLiteFluent.Enums;
 using SQLiteFluent.Helpers;
 using System;
@@ -39,6 +38,13 @@ namespace SQLiteFluent.Models
 		{
 			SqliteConnection.ClearPool(GetConnection(name));
 			File.Delete(GetDatabasePath(name));
+			RefreshDatabases();
+		}
+
+		public static void RenameDatabase(string oldName, string newName)
+		{
+			SqliteConnection.ClearPool(GetConnection(oldName));
+			File.Move(GetDatabasePath(oldName), GetDatabasePath(newName));
 			RefreshDatabases();
 		}
 
@@ -144,25 +150,29 @@ namespace SQLiteFluent.Models
 			db.Open();
 			SqliteCommand command = new(query, db);
 			SqliteDataReader sqliteDataReader = command.ExecuteReader();
+			Table table = GetTable(sqliteDataReader);
+			db.Dispose();
+			return table;
+		}
 
-			List<string> tableNames = new();
+		private static Table GetTable(SqliteDataReader sqliteDataReader)
+		{
+			ObservableCollection<string> tableNames = new();
 			for (int i = 0; i < sqliteDataReader.FieldCount; i++)
 			{
 				tableNames.Add(sqliteDataReader.GetName(i));
 			}
 
-			List<List<string>> rows = new();
+			ObservableCollection<ObservableCollection<string>> rows = new();
 			while (sqliteDataReader.Read())
 			{
-				List<string> row = new();
+				ObservableCollection<string> row = new();
 				for (int i = 0; i < sqliteDataReader.FieldCount; i++)
 				{
 					row.Add(sqliteDataReader.IsDBNull(i) == true ? null : sqliteDataReader.GetValue(i).ToString());
 				}
 				rows.Add(row);
 			}
-
-			db.Dispose();
 			return new Table() { Columns = tableNames, Rows = rows };
 		}
 
@@ -173,6 +183,17 @@ namespace SQLiteFluent.Models
 			SqliteCommand cmd = new($"drop TABLE {tableName};", sqliteConnection);
 			cmd.ExecuteNonQuery();
 			sqliteConnection.Dispose();
+		}
+
+		public static Table GetTop1000TableItems(Database db, string tableName)
+		{
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			sqliteConnection.Open();
+			SqliteCommand cmd = new($"SELECT * FROM {tableName} LIMIT 1000;", sqliteConnection);
+			SqliteDataReader sqliteDataReader = cmd.ExecuteReader();
+			Table table = GetTable(sqliteDataReader);
+			sqliteConnection.Dispose();
+			return table;
 		}
 
 		public static ObservableCollection<DatabaseTreeItem> RefreshTables(DatabaseTreeItem selectedItem)

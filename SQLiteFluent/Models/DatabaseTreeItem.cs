@@ -16,8 +16,10 @@ namespace SQLiteFluent.Models
 		public string Name { get; set; }
 		public string FieldType { get; set; }
 		public IRelayCommand DeleteDatabaseCommand { get; set; }
+		public IRelayCommand RenameDatabaseCommand { get; set; }
 		public IRelayCommand DeleteTableCommand { get; set; }
 		public IRelayCommand RefreshTablesCommand { get; set; }
+		public IRelayCommand Top1000TableItemsCommand { get; set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
 		public ObservableCollection<DatabaseTreeItem> Children
@@ -56,8 +58,10 @@ namespace SQLiteFluent.Models
 		public DatabaseTreeItem()
 		{
 			DeleteDatabaseCommand = new RelayCommand<object>(DeleteDatabase);
+			RenameDatabaseCommand = new RelayCommand<object>(RenameDatabase);
 			DeleteTableCommand = new RelayCommand<object>(DeleteTable);
 			RefreshTablesCommand = new RelayCommand<object>(RefreshTables);
+			Top1000TableItemsCommand = new RelayCommand<object>(Top1000TableItems);
 		}
 
 		private async void DeleteDatabase(object sender)
@@ -67,6 +71,15 @@ namespace SQLiteFluent.Models
 				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
 				IEnumerable<Database> db = AppHelpers.Databases.Where(x => x.Name == selectedItem.Name);
 				DataAccess.DeleteDatabase(selectedItem.Name);
+			}
+		}
+
+		private async void RenameDatabase(object sender)
+		{
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			if (await DialogService.RenameDatabaseAsync(selectedItem.Name) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{				
+				DataAccess.RefreshDatabases();
 			}
 		}
 
@@ -91,6 +104,14 @@ namespace SQLiteFluent.Models
 			{
 				AppHelpers.DataSource[indexDatabase].Children[0].Children.Add(item);
 			}
+		}
+
+		private void Top1000TableItems(object sender)
+		{
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+			Table table = DataAccess.GetTop1000TableItems(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
+			AppHelpers.FillTable(table.Columns, table.Rows);
 		}
 
 		public override bool Equals(object obj)

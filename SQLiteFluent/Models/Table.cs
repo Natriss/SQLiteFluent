@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SQLiteFluent.Models
 {
 	public class Table
 	{
-		public List<string> Columns { get; set; }
-		public List<List<string>> Rows { get; set; }
+		public ObservableCollection<string> Columns { get; set; }
+		public ObservableCollection<ObservableCollection<string>> Rows { get; set; }
 	}
 }
