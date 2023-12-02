@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using SQLiteFluent.Enums;
 using SQLiteFluent.Helpers;
 using SQLiteFluent.Services;
@@ -18,6 +19,7 @@ namespace SQLiteFluent.Models
 		public IRelayCommand DeleteDatabaseCommand { get; set; }
 		public IRelayCommand RenameDatabaseCommand { get; set; }
 		public IRelayCommand DeleteTableCommand { get; set; }
+		public IRelayCommand RenameTableCommand { get; set; }
 		public IRelayCommand RefreshTablesCommand { get; set; }
 		public IRelayCommand Top1000TableItemsCommand { get; set; }
 
@@ -57,14 +59,15 @@ namespace SQLiteFluent.Models
 
 		public DatabaseTreeItem()
 		{
-			DeleteDatabaseCommand = new RelayCommand<object>(DeleteDatabase);
-			RenameDatabaseCommand = new RelayCommand<object>(RenameDatabase);
-			DeleteTableCommand = new RelayCommand<object>(DeleteTable);
+			DeleteDatabaseCommand = new RelayCommand<object>(DeleteDatabaseAsync);
+			RenameDatabaseCommand = new RelayCommand<object>(RenameDatabaseAsync);
+			DeleteTableCommand = new RelayCommand<object>(DeleteTableAsync);
 			RefreshTablesCommand = new RelayCommand<object>(RefreshTables);
+			RenameTableCommand = new RelayCommand<object>(RenameTable);
 			Top1000TableItemsCommand = new RelayCommand<object>(Top1000TableItems);
 		}
 
-		private async void DeleteDatabase(object sender)
+		private async void DeleteDatabaseAsync(object sender)
 		{
 			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to delete the database?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
@@ -74,7 +77,7 @@ namespace SQLiteFluent.Models
 			}
 		}
 
-		private async void RenameDatabase(object sender)
+		private async void RenameDatabaseAsync(object sender)
 		{
 			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
 			if (await DialogService.RenameDatabaseAsync(selectedItem.Name) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
@@ -83,7 +86,7 @@ namespace SQLiteFluent.Models
 			}
 		}
 
-		private async void DeleteTable(object sender)
+		private async void DeleteTableAsync(object sender)
 		{
 			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to delete the table?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
@@ -91,6 +94,21 @@ namespace SQLiteFluent.Models
 				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
 				DataAccess.DeleteTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
 				AppHelpers.DataSource[indexDatabase].Children[0].Children.Remove(selectedItem);
+			}
+		}
+
+		private async void RenameTable(object sender)
+		{
+			DatabaseTreeItem databaseTreeItem = sender as DatabaseTreeItem;
+			int indexDatabase = AppHelpers.DataSource.IndexOf(databaseTreeItem.DataBase);
+			if (await DialogService.RenameTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), databaseTreeItem.Name) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{
+				ObservableCollection<DatabaseTreeItem> newChilds = DataAccess.RefreshTables(databaseTreeItem);
+				AppHelpers.DataSource[indexDatabase].Children[0].Children.Clear();
+				foreach (DatabaseTreeItem item in newChilds)
+				{
+					AppHelpers.DataSource[indexDatabase].Children[0].Children.Add(item);
+				}
 			}
 		}
 

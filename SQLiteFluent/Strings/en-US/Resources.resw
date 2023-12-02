@@ -208,6 +208,18 @@ Existing database will be overwritten.</value>
   <data name="RenameDatabaseOldName.Text" xml:space="preserve">
     <value>Old name:</value>
   </data>
+  <data name="RenameTable.Text" xml:space="preserve">
+    <value>Rename table</value>
+  </data>
+  <data name="RenameTableDialogCloseBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RenameTableDialogPrimaryBtn" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="RenameTableDialogTitle" xml:space="preserve">
+    <value>Rename Table</value>
+  </data>
   <data name="SelectTop1000Rows.Text" xml:space="preserve">
     <value>Select top 1000 rows</value>
   </data>

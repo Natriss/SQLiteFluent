@@ -48,6 +48,7 @@
                     <MenuFlyout>
                         <MenuFlyoutItem x:Uid="SelectTop1000Rows" Command="{x:Bind Top1000TableItemsCommand}" CommandParameter="{x:Bind}" />
                         <MenuFlyoutSeparator />
+                        <MenuFlyoutItem x:Uid="RenameTable" Command="{x:Bind RenameTableCommand}" CommandParameter="{x:Bind}" />
                         <MenuFlyoutItem x:Uid="DeleteTable" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>

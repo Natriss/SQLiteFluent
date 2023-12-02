@@ -254,5 +254,14 @@ namespace SQLiteFluent.Models
 				AppHelpers.DataSource.Add(db);
 			}
 		}
+
+		public static void RenameTable(Database db, string oldName, string newName)
+		{
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			sqliteConnection.Open();
+			SqliteCommand cmd = new($"ALTER TABLE {oldName} RENAME TO {newName};", sqliteConnection);
+			cmd.ExecuteNonQuery();
+			sqliteConnection.Dispose();
+		}
 	}
 }

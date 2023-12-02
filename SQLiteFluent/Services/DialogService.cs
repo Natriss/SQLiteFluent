@@ -97,5 +97,29 @@ namespace SQLiteFluent.Services
 
 			return result;
 		}
+
+		public static async Task<ContentDialogResult> RenameTableAsync(Database db, string oldTableName)
+		{
+			ContentDialog contentDialog = new()
+			{
+				XamlRoot = AppHelpers.Root.XamlRoot,
+				Title = "RenameTableDialogTitle".GetLocalized(),
+				Content = new RenameTableDialog(oldTableName),
+				PrimaryButtonText = "RenameTableDialogPrimaryBtn".GetLocalized(),
+				CloseButtonText = "RenameTableDialogCloseBtn".GetLocalized(),
+				DefaultButton = ContentDialogButton.Primary,
+			};
+			ContentDialogResult result = await contentDialog.ShowAsync();
+
+			if (result != ContentDialogResult.Primary)
+			{
+				return result;
+			}
+
+			RenameTableDialogViewModel vm = ((RenameTableDialog)contentDialog.Content).DataContext as RenameTableDialogViewModel;
+			DataAccess.RenameTable(db, vm.OldName, vm.NewName);
+
+			return result;
+		}
 	}
 }
