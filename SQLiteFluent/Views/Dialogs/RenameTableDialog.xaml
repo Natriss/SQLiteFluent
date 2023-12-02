@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" x:Uid="RenameDatabaseDialog" />
+        <TextBlock Grid.Row="0" x:Uid="RenameTableDialog" />
         <StackPanel Grid.Row="1" Spacing="4" Orientation="Horizontal">
             <TextBlock x:Uid="RenameDatabaseOldName" />
             <TextBlock Text="{x:Bind ViewModel.OldName, Mode=OneWay}" />

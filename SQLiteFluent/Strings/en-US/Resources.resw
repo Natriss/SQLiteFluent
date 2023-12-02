@@ -211,6 +211,9 @@ Existing database will be overwritten.</value>
   <data name="RenameTable.Text" xml:space="preserve">
     <value>Rename table</value>
   </data>
+  <data name="RenameTableDialog.Text" xml:space="preserve">
+    <value>Give your table a new name.</value>
+  </data>
   <data name="RenameTableDialogCloseBtn" xml:space="preserve">
     <value>Cancel</value>
   </data>
