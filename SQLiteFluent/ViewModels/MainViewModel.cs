@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using SQLiteFluent.Services;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -41,12 +40,14 @@ namespace SQLiteFluent.ViewModels
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
 		public IRelayCommand ExecuteQueryCommand { get; private set; }
+		public IRelayCommand OpenSettingsCommand { get; private set; }
 
 		public MainViewModel()
 		{
 			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
 			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
+			OpenSettingsCommand = new RelayCommand(NavigateToSettings);
 		}
 		private async void AddDatabaseAsync()
 		{
@@ -68,6 +69,11 @@ namespace SQLiteFluent.ViewModels
 		{
 			Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
 			AppHelpers.FillTable(table.Columns, table.Rows);
+		}
+
+		private void NavigateToSettings()
+		{
+			
 		}
 	}
 }

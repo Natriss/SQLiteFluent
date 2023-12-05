@@ -11,6 +11,12 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            <Style x:Key="SQLiteFluentIcons" TargetType="FontIcon">
+                <Style.Setters>
+                    <Setter Property="FontFamily" Value="/Fonts/SQLiteFluentIcons.otf#SQLiteFluentIcons" />
+                    <Setter Property="FontSize" Value="24" />
+                </Style.Setters>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -14,12 +14,12 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="RenameDatabase" Command="{x:Bind RenameDatabaseCommand}" CommandParameter="{x:Bind}" />
-                        <MenuFlyoutItem x:Uid="DeleteDatabase" Command="{x:Bind DeleteDatabaseCommand}" CommandParameter="{x:Bind}" />
+                        <MenuFlyoutItem x:Uid="RenameDatabase" Command="{x:Bind RenameDatabaseCommand}" CommandParameter="{x:Bind}" Icon="Rename" />
+                        <MenuFlyoutItem x:Uid="DeleteDatabase" Command="{x:Bind DeleteDatabaseCommand}" CommandParameter="{x:Bind}" Icon="Delete" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE000;" Margin="0,0,8,0" />
                     <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
                 </StackPanel>
             </TreeViewItem>
@@ -29,7 +29,7 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="RefreshTables" Command="{x:Bind RefreshTablesCommand}" CommandParameter="{x:Bind}" />
+                        <MenuFlyoutItem x:Uid="RefreshTables" Command="{x:Bind RefreshTablesCommand}" CommandParameter="{x:Bind}" Icon="Refresh" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
@@ -46,10 +46,14 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="SelectTop1000Rows" Command="{x:Bind Top1000TableItemsCommand}" CommandParameter="{x:Bind}" />
+                        <MenuFlyoutItem x:Uid="SelectTop1000Rows" Command="{x:Bind Top1000TableItemsCommand}" CommandParameter="{x:Bind}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE762;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                         <MenuFlyoutSeparator />
-                        <MenuFlyoutItem x:Uid="RenameTable" Command="{x:Bind RenameTableCommand}" CommandParameter="{x:Bind}" />
-                        <MenuFlyoutItem x:Uid="DeleteTable" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}" />
+                        <MenuFlyoutItem x:Uid="RenameTable" Command="{x:Bind RenameTableCommand}" CommandParameter="{x:Bind}" Icon="Rename" />
+                        <MenuFlyoutItem x:Uid="DeleteTable" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}" Icon="Delete" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
@@ -111,7 +115,7 @@
             <DropDownButton Grid.Row="0" Margin="0,0,0,4">
                 <DropDownButton.Content>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon Glyph="&#xE701;" />
+                        <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE000;" />
                         <TextBlock x:Uid="Database" />
                     </StackPanel>
                 </DropDownButton.Content>
@@ -119,12 +123,12 @@
                     <MenuFlyout Placement="Bottom">
                         <MenuFlyoutItem x:Uid="AddDatabase" Command="{x:Bind ViewModel.AddDatabaseFlyoutCommand}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE710;" />
+                                <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE001;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem x:Uid="ImportDatabase" Command="{x:Bind ViewModel.ImportDatabaseFlyoutCommand}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE8B5;" />
+                                <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE002;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -147,8 +151,14 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="4">
-                    <Button Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.ExecuteQueryCommand}">
+                <Grid Grid.Row="0" ColumnSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.ExecuteQueryCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon Glyph="&#xE768;" />
@@ -157,14 +167,20 @@
                         </Button.Content>
                     </Button>
 
-                    <ComboBox ItemsSource="{x:Bind ViewModel.ComboboxItemSource, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedComboboxItem, Mode=TwoWay}">
+                    <ComboBox Grid.Column="1" ItemsSource="{x:Bind ViewModel.ComboboxItemSource, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedComboboxItem, Mode=TwoWay}" VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate x:DataType="models:Database" >
                                 <TextBlock Text="{x:Bind Name}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                </StackPanel>
+
+                    <Button Grid.Column="3" x:Uid="SettingsBtn" Command="{x:Bind ViewModel.OpenSettingsCommand}" Visibility="Collapsed">
+                        <Button.Content>
+                            <FontIcon Glyph="&#xE713;" />
+                        </Button.Content>
+                    </Button>
+                </Grid>
                 <TextBox Grid.Row="1" AcceptsReturn="True" Text="{x:Bind ViewModel.Query, Mode=TwoWay}" FontFamily="Cascadia Mono" IsSpellCheckEnabled="False" />
             </Grid>
             <!--<ListView Grid.Row="1" ItemsSource="{x:Bind ViewModel.Rows, Mode=OneWay}">

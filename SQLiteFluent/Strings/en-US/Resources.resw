@@ -226,4 +226,10 @@ Existing database will be overwritten.</value>
   <data name="SelectTop1000Rows.Text" xml:space="preserve">
     <value>Select top 1000 rows</value>
   </data>
+  <data name="SettingsBtn.Padding" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="SettingsBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>
