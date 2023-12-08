@@ -8,7 +8,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock Text="Settings" Style="{StaticResource HeaderTextBlockStyle}" />
+    <Grid Margin="12,0" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Settings" Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ScrollView Grid.Row="1">
+            <Grid RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" RowSpacing="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="About this app" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <TextBlock Grid.Row="1">
+                        <Run Text="SQLiteFluent 0.0.0.0"/>
+                        <LineBreak/>
+                        <Run Text="©️ 2023 Natriss"/>
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <HyperlinkButton Content="Help" NavigateUri="nothing" />
+                </Grid>
+            </Grid>
+        </ScrollView>
     </Grid>
 </Page>

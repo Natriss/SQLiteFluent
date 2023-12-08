@@ -175,7 +175,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Button Grid.Column="3" x:Uid="SettingsBtn" Command="{x:Bind ViewModel.OpenSettingsCommand}" Visibility="Collapsed">
+                    <Button Grid.Column="3" x:Uid="SettingsBtn" Command="{x:Bind ViewModel.OpenSettingsCommand}">
                         <Button.Content>
                             <FontIcon Glyph="&#xE713;" />
                         </Button.Content>

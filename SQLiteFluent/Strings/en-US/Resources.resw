@@ -147,6 +147,9 @@
   <data name="AskBeforeDeletionDialogTitlePrimaryBtn" xml:space="preserve">
     <value>Yes, I'm sure</value>
   </data>
+  <data name="BackBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="ClearDatabase.Text" xml:space="preserve">
     <value>Clear database</value>
   </data>

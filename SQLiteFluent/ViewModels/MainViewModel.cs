@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using SQLiteFluent.Services;
+using SQLiteFluent.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -73,7 +74,7 @@ namespace SQLiteFluent.ViewModels
 
 		private void NavigateToSettings()
 		{
-			
+			NavigationHelper.NavigateTo(typeof(SettingsPage));
 		}
 	}
 }
