@@ -181,6 +181,18 @@ Existing database will be overwritten.</value>
   <data name="ImportDatabaseDialogTitle" xml:space="preserve">
     <value>Import database</value>
   </data>
+  <data name="RecipeBtn.Padding" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="RecipeBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>SQLite recipe book</value>
+  </data>
+  <data name="RecipePaneHeader.Text" xml:space="preserve">
+    <value>SQLite commands</value>
+  </data>
+  <data name="RecipeTitle.Text" xml:space="preserve">
+    <value>SQLite recipe book</value>
+  </data>
   <data name="RefreshDatabaseList.Text" xml:space="preserve">
     <value>Refresh database list</value>
   </data>
@@ -226,6 +238,9 @@ Existing database will be overwritten.</value>
   <data name="RenameTableDialogTitle" xml:space="preserve">
     <value>Rename Table</value>
   </data>
+  <data name="SelectTitle.Text" xml:space="preserve">
+    <value>Select</value>
+  </data>
   <data name="SelectTop1000Rows.Text" xml:space="preserve">
     <value>Select top 1000 rows</value>
   </data>
@@ -233,6 +248,9 @@ Existing database will be overwritten.</value>
     <value>8</value>
   </data>
   <data name="SettingsBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsTitle.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
 </root>

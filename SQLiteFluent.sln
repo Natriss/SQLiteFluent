@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLiteFluent", "SQLiteFluent\SQLiteFluent.csproj", "{519A2FA6-DE09-42FA-8B31-CA5DBA842695}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteFluent.Core", "SQLiteFluent.Core\SQLiteFluent.Core.csproj", "{ABED56CC-A797-4140-8DA0-E358E11FD0C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLiteFluent.Core", "SQLiteFluent.Core\SQLiteFluent.Core.csproj", "{ABED56CC-A797-4140-8DA0-E358E11FD0C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

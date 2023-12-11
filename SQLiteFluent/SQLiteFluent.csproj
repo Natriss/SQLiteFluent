@@ -20,6 +20,8 @@
     <None Remove="Views\Dialogs\RenameDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\RenameTableDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
+    <None Remove="Views\RecipePage.xaml" />
+    <None Remove="Views\Recipes\SelectPage.xaml" />
     <None Remove="Views\SettingsPage.xaml" />
   </ItemGroup>
 
@@ -56,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SQLiteFluent.Core\SQLiteFluent.Core.csproj" />
+    <ProjectReference Include="..\SQLiteFluent.Data\SQLiteFluent.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RecipePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\SettingsPage.xaml">
@@ -89,6 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddDatabaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Recipes\SelectPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

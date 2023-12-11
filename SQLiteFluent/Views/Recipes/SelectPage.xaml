@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SQLiteFluent.Views.Recipes.SelectPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SQLiteFluent.Views.Recipes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:converters="using:SQLiteFluent.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <VisualState x:Name="CollapseDown">
+            <VisualState.Storyboard>
+                <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Translation" Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="Collapsed" />
+                    </ObjectAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Translation" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                        <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                        <SplineDoubleKeyFrame KeyTime="0:0:0.167" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ContentHeight}" KeySpline="1.0, 1.0, 0.0, 1.0" />
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState.Storyboard>
+        </VisualState>
+    </Page.Resources>
+
+    <Grid Margin="12,0" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" x:Uid="SelectTitle" Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ScrollView Grid.Row="1">
+            <Grid RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="The SELECT statement is used to query the database. The result of a SELECT is zero or more rows of data where each row has a fixed number of columns. A SELECT statement does not make any changes to the database." TextWrapping="WrapWholeWords" />
+
+                <Border Grid.Row="1" BorderThickness="1" BorderBrush="{StaticResource CardStrokeColorDefault}" CornerRadius="8">
+                    <StackPanel Orientation="Vertical">
+                        <Border Background="{StaticResource CardBackgroundFillColorDefault}" Padding="8">
+                            <Grid ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="SELECT * FROM [table name];" FontFamily="Cascadia Mono" VerticalAlignment="Center" />
+                                <Line Grid.Column="1" Stroke="{StaticResource CardStrokeColorDefault}" StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="32" VerticalAlignment="Center" />
+                                <ToggleButton Grid.Column="2" Padding="8" VerticalAlignment="Center" IsChecked="{x:Bind ViewModel.InfoToggled, Mode=TwoWay}">
+                                    <ToggleButton.Content>
+                                        <FontIcon Glyph="&#xE946;" />
+                                    </ToggleButton.Content>
+                                </ToggleButton>
+                            </Grid>
+                        </Border>
+                        <Border x:Name="Translation" Padding="8" Height="200" Background="Yellow" Visibility="{x:Bind ViewModel.InfoToggled, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</Page>

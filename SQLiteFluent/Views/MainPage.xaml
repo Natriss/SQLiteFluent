@@ -157,6 +157,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.ExecuteQueryCommand}">
                         <Button.Content>
@@ -175,7 +176,13 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Button Grid.Column="3" x:Uid="SettingsBtn" Command="{x:Bind ViewModel.OpenSettingsCommand}">
+                    <Button Grid.Column="3" x:Uid="RecipeBtn" Command="{x:Bind ViewModel.OpenHelpRecipeCommand}">
+                        <Button.Content>
+                            <FontIcon Glyph="&#xE736;" />
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="4" x:Uid="SettingsBtn" Command="{x:Bind ViewModel.OpenSettingsCommand}">
                         <Button.Content>
                             <FontIcon Glyph="&#xE713;" />
                         </Button.Content>
