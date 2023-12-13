@@ -42,6 +42,7 @@ namespace SQLiteFluent.ViewModels
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
 		public IRelayCommand ExecuteQueryCommand { get; private set; }
 		public IRelayCommand OpenSettingsCommand { get; private set; }
+		public IRelayCommand OpenHelpRecipeCommand { get; private set; }
 
 		public MainViewModel()
 		{
@@ -49,6 +50,7 @@ namespace SQLiteFluent.ViewModels
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
 			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
 			OpenSettingsCommand = new RelayCommand(NavigateToSettings);
+			OpenHelpRecipeCommand = new RelayCommand(NavigateToRecipe);
 		}
 		private async void AddDatabaseAsync()
 		{
@@ -75,6 +77,11 @@ namespace SQLiteFluent.ViewModels
 		private void NavigateToSettings()
 		{
 			NavigationHelper.NavigateTo(typeof(SettingsPage));
+		}
+
+		private void NavigateToRecipe()
+		{
+			NavigationHelper.NavigateTo(typeof(RecipePage));
 		}
 	}
 }
