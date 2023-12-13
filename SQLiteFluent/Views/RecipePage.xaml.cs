@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml.Controls;
+using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using SQLiteFluent.ViewModels;
 

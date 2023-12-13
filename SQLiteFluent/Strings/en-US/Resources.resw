@@ -153,6 +153,9 @@
   <data name="ClearDatabase.Text" xml:space="preserve">
     <value>Clear database</value>
   </data>
+  <data name="CopyBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
   <data name="Database.Text" xml:space="preserve">
     <value>Database</value>
   </data>
@@ -237,9 +240,6 @@ Existing database will be overwritten.</value>
   </data>
   <data name="RenameTableDialogTitle" xml:space="preserve">
     <value>Rename Table</value>
-  </data>
-  <data name="SelectTitle.Text" xml:space="preserve">
-    <value>Select</value>
   </data>
   <data name="SelectTop1000Rows.Text" xml:space="preserve">
     <value>Select top 1000 rows</value>

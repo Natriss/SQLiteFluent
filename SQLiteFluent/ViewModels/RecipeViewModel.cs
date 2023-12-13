@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
-using SQLiteFluent.Data.File;
 using SQLiteFluent.Models;
 using SQLiteFluent.Views.Recipes;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 
 namespace SQLiteFluent.ViewModels
 {
@@ -14,7 +12,10 @@ namespace SQLiteFluent.ViewModels
 	{
 		private readonly ObservableCollection<PaneNavLink> _items = new()
 		{
-			new PaneNavLink() { Name = "Select", CodeGlyph = "\uE734", Page = typeof(SelectPage) }
+			new PaneNavLink() { Name = "Select", CodeGlyph = "\uE734", Page = typeof(SelectPage) },
+			new PaneNavLink() { Name = "Update", CodeGlyph = "\uE734", Page = typeof(UpdatePage) },
+			new PaneNavLink() { Name = "Delete", CodeGlyph = "\uE734", Page = typeof(DeletePage) },
+			new PaneNavLink() { Name = "Drop", CodeGlyph = "\uE734", Page = typeof(DropPage) },
 		};
 
 		public ObservableCollection<PaneNavLink> ItemSource { get { return _items; } }
