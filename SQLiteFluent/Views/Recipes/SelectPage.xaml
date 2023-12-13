@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SQLiteFluent.Views.Recipes.SelectPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SQLiteFluent.Views.Recipes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:controls="using:SQLiteFluent.Controls"
+    mc:Ignorable="d">
+
+    <Grid Margin="12,0" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Select" Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ScrollView Grid.Row="1">
+            <StackPanel Orientation="Vertical" Spacing="12">
+                <controls:RecipeControl Query="SELECT [column name, ... | *] FROM [table name];" Information="The SELECT statement is used to get data from specified columns or all data from a table." />
+                <controls:RecipeControl Query="WHERE [conditions];" Information="After a SELECT statement the WHERE is used to create an condition and when the condition is met. You'll get that that specific data." />
+                <controls:RecipeControl Query="GROUP BY [column name, ...];" Information="After a WHERE statement the GROUP BY is used to group your data by specified columns." />
+                <controls:RecipeControl Query="ORDER BY [column name, ...] [ASC | DESC];" Information="At the end of your query the ORDER BY is used to sort your data by specified columns and if it needs to be ASCENDING or DESCENDING." />
+                <controls:RecipeControl Query="SELECT * FROM [table name] LIMIT [amount of rows];" Information="Before the ORDER BY or at the end of the query the Limits the rows returned in a query result set to a specified number of rows or percentage of rows in SQLite." />
+            </StackPanel>
+        </ScrollView>
+    </Grid>
+</Page>

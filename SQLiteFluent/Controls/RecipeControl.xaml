@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="SQLiteFluent.Controls.RecipeControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SQLiteFluent.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SQLiteFluent.Converters"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Border Grid.Row="1" BorderThickness="1" BorderBrush="{StaticResource CardStrokeColorDefault}" CornerRadius="8">
+        <StackPanel Orientation="Vertical">
+            <Border Background="{StaticResource CardBackgroundFillColorDefault}" Padding="16,8">
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{x:Bind Query, Mode=OneWay}" FontFamily="Cascadia Mono" VerticalAlignment="Center" TextWrapping="WrapWholeWords" />
+                    <AppBarSeparator Grid.Column="1" />
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                        <Button Padding="8" x:Uid="CopyBtn" VerticalAlignment="Center" Command="{x:Bind ViewModel.CopyCommand}" CommandParameter="{x:Bind Query, Mode=OneWay}">
+                            <Button.Content>
+                                <FontIcon Glyph="&#xE8C8;" />
+                            </Button.Content>
+                        </Button>
+                        <ToggleButton Padding="8" VerticalAlignment="Center" IsChecked="{x:Bind ViewModel.InfoToggled, Mode=TwoWay}">
+                            <ToggleButton.Content>
+                                <FontIcon Glyph="&#xE946;" />
+                            </ToggleButton.Content>
+                        </ToggleButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Padding="16" Background="{StaticResource LayerOnAcrylicFillColorDefault}" Visibility="{x:Bind ViewModel.InfoToggled, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <TextBlock Grid.Column="0" Text="{x:Bind Information, Mode=OneWay}" VerticalAlignment="Center" TextWrapping="WrapWholeWords" />
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>

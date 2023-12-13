@@ -12,6 +12,7 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Controls\RecipeControl.xaml" />
     <None Remove="Fonts\SQLiteFluent.otf" />
     <None Remove="Fonts\SQLiteFluentIcons.otf" />
     <None Remove="Views\Dialogs\AddDatabaseDialog.xaml" />
@@ -20,6 +21,11 @@
     <None Remove="Views\Dialogs\RenameDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\RenameTableDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
+    <None Remove="Views\RecipePage.xaml" />
+    <None Remove="Views\Recipes\DeletePage.xaml" />
+    <None Remove="Views\Recipes\DropPage.xaml" />
+    <None Remove="Views\Recipes\SelectPage.xaml" />
+    <None Remove="Views\Recipes\UpdatePage.xaml" />
     <None Remove="Views\SettingsPage.xaml" />
   </ItemGroup>
 
@@ -58,6 +64,26 @@
     <ProjectReference Include="..\SQLiteFluent.Core\SQLiteFluent.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Recipes\DropPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Recipes\DeletePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Recipes\UpdatePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RecipePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,6 +115,16 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddDatabaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Recipes\SelectPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\RecipeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

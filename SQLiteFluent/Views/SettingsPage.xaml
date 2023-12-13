@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Settings" Style="{StaticResource TitleTextBlockStyle}" />
+        <TextBlock Grid.Row="0" x:Uid="SettingsTitle" Style="{StaticResource TitleTextBlockStyle}" />
 
         <ScrollView Grid.Row="1">
             <Grid RowSpacing="12">
