@@ -31,7 +31,7 @@
                     <TextBlock Grid.Row="1">
                         <Run Text="SQLiteFluent 0.0.0.0"/>
                         <LineBreak/>
-                        <Run Text="©️ 2023 Natriss"/>
+                        <Run Text="©️ 2023 dragon-software"/>
                     </TextBlock>
                 </Grid>
 
@@ -39,7 +39,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <HyperlinkButton Content="Help" NavigateUri="nothing" />
+                    <HyperlinkButton Content="Help" NavigateUri="https://www.dragon-software.eu/" />
                 </Grid>
             </Grid>
         </ScrollView>
