@@ -18,6 +18,7 @@
     <None Remove="Views\Dialogs\AddDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\AskBeforeDeletionDialog.xaml" />
     <None Remove="Views\Dialogs\ImportDatabaseDialog.xaml" />
+    <None Remove="Views\Dialogs\InsertDataIntoTableDialog.xaml" />
     <None Remove="Views\Dialogs\RenameDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\RenameTableDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
@@ -62,6 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SQLiteFluent.Core\SQLiteFluent.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\InsertDataIntoTableDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Recipes\DropPage.xaml">

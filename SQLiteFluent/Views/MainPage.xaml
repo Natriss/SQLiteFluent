@@ -51,6 +51,16 @@
                                 <FontIcon Glyph="&#xE762;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
+                        <!--<MenuFlyoutItem x:Uid="AddColumnToTable" Command="{x:Bind AddColumnIntoTableCommand}" CommandParameter="{x:Bind}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE762;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>-->
+                        <MenuFlyoutItem x:Uid="InsertDataIntoTable" Command="{x:Bind InsertDataIntoTableCommand}" CommandParameter="{x:Bind}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE710;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                         <MenuFlyoutSeparator />
                         <MenuFlyoutItem x:Uid="RenameTable" Command="{x:Bind RenameTableCommand}" CommandParameter="{x:Bind}" Icon="Rename" />
                         <MenuFlyoutItem x:Uid="DeleteTable" Command="{x:Bind DeleteTableCommand}" CommandParameter="{x:Bind}" Icon="Delete" />

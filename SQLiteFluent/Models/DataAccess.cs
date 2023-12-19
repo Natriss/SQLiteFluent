@@ -196,6 +196,17 @@ namespace SQLiteFluent.Models
 			return table;
 		}
 
+		public static void InsertDataIntoTable(Database db, string tableName, Dictionary<string, string> data)
+		{
+			string[] columns = data.Keys.ToArray();
+			string[] values = data.Values.ToArray();
+            using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			sqliteConnection.Open();
+			SqliteCommand cmd = new($"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES (\"{string.Join("\", \"", values)}\");", sqliteConnection);
+			cmd.ExecuteNonQuery();
+			sqliteConnection.Dispose();
+		}
+
 		public static ObservableCollection<DatabaseTreeItem> RefreshTables(DatabaseTreeItem selectedItem)
 		{
 			SqliteConnection sqliteConnection = GetConnection(selectedItem.DataBase.Name);

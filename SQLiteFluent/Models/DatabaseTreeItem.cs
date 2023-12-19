@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using SQLiteFluent.Enums;
 using SQLiteFluent.Helpers;
 using SQLiteFluent.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,12 +16,14 @@ namespace SQLiteFluent.Models
 		public DatabaseTreeItem DataBase { get; set; }
 		public string Name { get; set; }
 		public string FieldType { get; set; }
-		public IRelayCommand DeleteDatabaseCommand { get; set; }
-		public IRelayCommand RenameDatabaseCommand { get; set; }
-		public IRelayCommand DeleteTableCommand { get; set; }
-		public IRelayCommand RenameTableCommand { get; set; }
-		public IRelayCommand RefreshTablesCommand { get; set; }
-		public IRelayCommand Top1000TableItemsCommand { get; set; }
+		public IRelayCommand DeleteDatabaseCommand { get; private set; }
+		public IRelayCommand RenameDatabaseCommand { get; private set; }
+		public IRelayCommand DeleteTableCommand { get; private set; }
+		public IRelayCommand RenameTableCommand { get; private set; }
+		public IRelayCommand RefreshTablesCommand { get; private set; }
+		public IRelayCommand Top1000TableItemsCommand { get; private set; }
+		public IRelayCommand InsertDataIntoTableCommand { get; private set; }
+		public IRelayCommand AddColumnIntoTableCommand { get; private set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
 		public ObservableCollection<DatabaseTreeItem> Children
@@ -65,6 +67,16 @@ namespace SQLiteFluent.Models
 			RefreshTablesCommand = new RelayCommand<object>(RefreshTables);
 			RenameTableCommand = new RelayCommand<object>(RenameTable);
 			Top1000TableItemsCommand = new RelayCommand<object>(Top1000TableItems);
+			InsertDataIntoTableCommand = new RelayCommand<object>(InsertDataIntoTable);
+		}
+
+		private async void InsertDataIntoTable(object sender)
+		{
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+			if (await DialogService.InsertDataIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{
+			}
 		}
 
 		private async void DeleteDatabaseAsync(object sender)

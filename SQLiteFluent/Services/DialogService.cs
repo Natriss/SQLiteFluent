@@ -4,6 +4,7 @@ using SQLiteFluent.Models;
 using SQLiteFluent.ViewModels.Dialogs;
 using SQLiteFluent.Views.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SQLiteFluent.Services
@@ -118,6 +119,31 @@ namespace SQLiteFluent.Services
 
 			RenameTableDialogViewModel vm = ((RenameTableDialog)contentDialog.Content).DataContext as RenameTableDialogViewModel;
 			DataAccess.RenameTable(db, vm.OldName, vm.NewName);
+
+			return result;
+		}
+
+		public static async Task<ContentDialogResult> InsertDataIntoTableAsync(Database db, DatabaseTreeItem table)
+		{
+			ContentDialog contentDialog = new()
+			{
+				XamlRoot = AppHelpers.Root.XamlRoot,
+				Title = "InsertDataIntoTableDialogTitle".GetLocalized(),
+				Content = new InsertDataIntoTableDialog(table.Children),
+				PrimaryButtonText = "InsertDataIntoTableDialogPrimaryBtn".GetLocalized(),
+				CloseButtonText = "InsertDataIntoTableDialogCloseBtn".GetLocalized(),
+				DefaultButton = ContentDialogButton.Primary,
+			};
+			ContentDialogResult result = await contentDialog.ShowAsync();
+
+			if (result != ContentDialogResult.Primary)
+			{
+				return result;
+			}
+
+			InsertDataIntoTableDialogViewModel vm = ((InsertDataIntoTableDialog)contentDialog.Content).DataContext as InsertDataIntoTableDialogViewModel;
+			Dictionary<string, string> values = vm.GetTableValues();
+			DataAccess.InsertDataIntoTable(db, table.Name, values);
 
 			return result;
 		}
