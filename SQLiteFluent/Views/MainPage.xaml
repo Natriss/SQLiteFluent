@@ -51,14 +51,19 @@
                                 <FontIcon Glyph="&#xE762;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <!--<MenuFlyoutItem x:Uid="AddColumnToTable" Command="{x:Bind AddColumnIntoTableCommand}" CommandParameter="{x:Bind}">
+                        <MenuFlyoutItem x:Uid="AddColumnToTable" Command="{x:Bind AddColumnIntoTableCommand}" CommandParameter="{x:Bind}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE762;" />
+                                <FontIcon Glyph="&#xE710;" />
                             </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>-->
+                        </MenuFlyoutItem>
                         <MenuFlyoutItem x:Uid="InsertDataIntoTable" Command="{x:Bind InsertDataIntoTableCommand}" CommandParameter="{x:Bind}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE710;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem x:Uid="ClearDataFromTable" Command="{x:Bind DeleteDataInsideTableCommand}" CommandParameter="{x:Bind}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE894;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutSeparator />
@@ -115,6 +120,8 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" x:Name="infoBarGrid" Loaded="infoBarGrid_Loaded" Grid.ColumnSpan="2" Canvas.ZIndex="1" MaxWidth="400" Margin="8" HorizontalAlignment="Right" />
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -281,6 +288,6 @@
             <controls:GridSplitter.RenderTransform>
                 <TranslateTransform X="-16" />
             </controls:GridSplitter.RenderTransform>
-        </controls:GridSplitter>
+        </controls:GridSplitter>        
     </Grid>
 </Page>

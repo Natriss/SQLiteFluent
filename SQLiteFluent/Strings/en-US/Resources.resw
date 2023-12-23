@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddColumnDefault.Text" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="AddColumnIntoTableDialogCloseBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AddColumnIntoTableDialogPrimaryBtn" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddColumnIntoTableDialogTitle" xml:space="preserve">
+    <value>Add new column</value>
+  </data>
+  <data name="AddColumnName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="AddColumnToTable.Text" xml:space="preserve">
     <value>Add column to table</value>
+  </data>
+  <data name="AddColumnType.Text" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="AddDatabase.Text" xml:space="preserve">
     <value>Add database</value>
@@ -155,6 +173,9 @@
   </data>
   <data name="ClearDatabase.Text" xml:space="preserve">
     <value>Clear database</value>
+  </data>
+  <data name="ClearDataFromTable.Text" xml:space="preserve">
+    <value>Clear table</value>
   </data>
   <data name="CopyBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Copy to clipboard</value>

@@ -1,12 +1,14 @@
 ﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using SQLiteFluent.Models;
+using System;
 using System.Collections.ObjectModel;
 
 namespace SQLiteFluent.Helpers
 {
 	public static class AppHelpers
 	{
-		public static FrameworkElement Root {  get; set; }
+		public static FrameworkElement Root { get; set; }
 		public static ObservableCollection<DatabaseTreeItem> DataSource { get; set; } = DataAccess.GetAllData();
 		public static ObservableCollection<Database> Databases { get; set; } = DataAccess.GetAvailableDatabases();
 		public static ObservableCollection<string> Columns { get; set; } = new();
@@ -25,6 +27,12 @@ namespace SQLiteFluent.Helpers
 			{
 				Rows.Add(row);
 			}
+		}
+
+		public static Grid InfoBarGrid { get; private set; }
+		public static void SetInfoBarGrid(Grid infoBarGrid)
+		{
+			InfoBarGrid = infoBarGrid;
 		}
 	}
 }

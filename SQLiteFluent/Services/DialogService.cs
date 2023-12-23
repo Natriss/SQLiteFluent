@@ -147,5 +147,29 @@ namespace SQLiteFluent.Services
 
 			return result;
 		}
+
+		public static async Task<ContentDialogResult> AddColumnIntoTableAsync(Database db, DatabaseTreeItem table)
+		{
+			ContentDialog contentDialog = new()
+			{
+				XamlRoot = AppHelpers.Root.XamlRoot,
+				Title = "AddColumnIntoTableDialogTitle".GetLocalized(),
+				Content = new AddColumnIntoTableDialog(),
+				PrimaryButtonText = "AddColumnIntoTableDialogPrimaryBtn".GetLocalized(),
+				CloseButtonText = "AddColumnIntoTableDialogCloseBtn".GetLocalized(),
+				DefaultButton = ContentDialogButton.Primary,
+			};
+			ContentDialogResult result = await contentDialog.ShowAsync();
+
+			if (result != ContentDialogResult.Primary)
+			{
+				return result;
+			}
+
+			AddColumnIntoTableDialogViewModel vm = ((AddColumnIntoTableDialog)contentDialog.Content).DataContext as AddColumnIntoTableDialogViewModel;
+			DataAccess.AddColumnIntoTable(db, table.Name, vm.Name, vm.SelectedType, vm.IsDefaultChecked, vm.DefaultValue);
+
+			return result;
+		}
 	}
 }

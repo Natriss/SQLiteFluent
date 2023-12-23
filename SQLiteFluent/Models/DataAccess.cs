@@ -274,5 +274,38 @@ namespace SQLiteFluent.Models
 			cmd.ExecuteNonQuery();
 			sqliteConnection.Dispose();
 		}
+
+		public static void ClearTable(Database db, string tableName)
+		{
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			sqliteConnection.Open();
+			SqliteCommand cmd = new($"DELETE FROM {tableName};", sqliteConnection);
+			cmd.ExecuteNonQuery();
+			sqliteConnection.Dispose();
+		}
+
+		public static void AddColumnIntoTable(Database db, string tableName, string columnName, ColumnDeclaredType type, bool isDefaultChecked, string defaultValue)
+		{
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			sqliteConnection.Open();
+			string queryDefaultValue = (type == ColumnDeclaredType.TEXT ? $"'{defaultValue}'" : defaultValue);
+			string queryDefault = isDefaultChecked ? $" NOT NULL DEFAULT {queryDefaultValue}" : null;
+			string query = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {Enum.GetName<ColumnDeclaredType>(type)}{queryDefault};";
+			SqliteCommand cmd = new(query, sqliteConnection);
+			cmd.ExecuteNonQuery();
+			sqliteConnection.Dispose();
+		}
+
+		public static void RefreshTableFields(Database db, DatabaseTreeItem selectedItem)
+		{
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			sqliteConnection.Open();
+			selectedItem.Children.Clear();
+			foreach(DatabaseTreeItem item in GetDatabaseTableFields(selectedItem.Name, sqliteConnection))
+			{
+				selectedItem.Children.Add(item);
+			}
+			sqliteConnection.Dispose();
+		}
 	}
 }

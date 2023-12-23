@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SQLiteFluent.Models
 {
@@ -24,6 +25,7 @@ namespace SQLiteFluent.Models
 		public IRelayCommand Top1000TableItemsCommand { get; private set; }
 		public IRelayCommand InsertDataIntoTableCommand { get; private set; }
 		public IRelayCommand AddColumnIntoTableCommand { get; private set; }
+		public IRelayCommand DeleteDataInsideTableCommand { get; private set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
 		public ObservableCollection<DatabaseTreeItem> Children
@@ -65,17 +67,42 @@ namespace SQLiteFluent.Models
 			RenameDatabaseCommand = new RelayCommand<object>(RenameDatabaseAsync);
 			DeleteTableCommand = new RelayCommand<object>(DeleteTableAsync);
 			RefreshTablesCommand = new RelayCommand<object>(RefreshTables);
-			RenameTableCommand = new RelayCommand<object>(RenameTable);
+			RenameTableCommand = new RelayCommand<object>(RenameTableAsync);
 			Top1000TableItemsCommand = new RelayCommand<object>(Top1000TableItems);
-			InsertDataIntoTableCommand = new RelayCommand<object>(InsertDataIntoTable);
+			InsertDataIntoTableCommand = new RelayCommand<object>(InsertDataIntoTableAsync);
+			AddColumnIntoTableCommand = new RelayCommand<object>(AddColumnIntoTableAsync);
+			DeleteDataInsideTableCommand = new RelayCommand<object>(DeleteDataInsideTableAsync);
 		}
 
-		private async void InsertDataIntoTable(object sender)
+		private async void AddColumnIntoTableAsync(object sender)
+		{
+			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+			if (await DialogService.AddColumnIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{
+				DataAccess.RefreshTableFields(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem);
+				InfoBarService.Show("Insert column into table", $"Your entry has successfully been added to the table \"{selectedItem.Name}\".", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
+			}
+		}
+
+		private async void DeleteDataInsideTableAsync(object sender)
+		{
+			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to clear out the table?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			{
+				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+				DataAccess.ClearTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
+				InfoBarService.Show("Clear table", $"Table \"{selectedItem.Name}\" has been cleared.", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
+			}
+		}
+
+		private async void InsertDataIntoTableAsync(object sender)
 		{
 			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
 			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
 			if (await DialogService.InsertDataIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
+				InfoBarService.Show("Insert data into table", $"Your entry has successfully been added to the table \"{selectedItem.Name}\".", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
 			}
 		}
 
@@ -109,7 +136,7 @@ namespace SQLiteFluent.Models
 			}
 		}
 
-		private async void RenameTable(object sender)
+		private async void RenameTableAsync(object sender)
 		{
 			DatabaseTreeItem databaseTreeItem = sender as DatabaseTreeItem;
 			int indexDatabase = AppHelpers.DataSource.IndexOf(databaseTreeItem.DataBase);

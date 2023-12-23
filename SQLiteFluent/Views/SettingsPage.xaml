@@ -39,7 +39,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <HyperlinkButton Content="Help" NavigateUri="https://www.dragon-software.eu/" />
+                    <HyperlinkButton Content="Help" NavigateUri="https://www.dragon-software.eu/apps/SQLiteFluent" />
                 </Grid>
             </Grid>
         </ScrollView>

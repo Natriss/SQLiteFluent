@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml.Controls;
+using SQLiteFluent.Helpers;
 using SQLiteFluent.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -18,5 +19,10 @@ namespace SQLiteFluent.Views
 			this.InitializeComponent();
 			this.DataContext = new MainViewModel();
 		}
-	}
+
+		private void infoBarGrid_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+		{
+			AppHelpers.SetInfoBarGrid(infoBarGrid);
+        }
+    }
 }
