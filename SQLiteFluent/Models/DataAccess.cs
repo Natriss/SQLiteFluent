@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.Storage;
 
 namespace SQLiteFluent.Models
@@ -23,6 +25,11 @@ namespace SQLiteFluent.Models
 			return Path.Combine(ApplicationData.Current.LocalFolder.Path, $"{databaseName}.db");
 		}
 
+		public static bool DoesFileExistAsync(string name)
+		{
+			return File.Exists(Path.Combine(ApplicationData.Current.LocalFolder.Path, name));
+		}
+
 		public static async void CreateDatabase(string name)
 		{
 			await ApplicationData.Current.LocalFolder.CreateFileAsync($"{name}.db", CreationCollisionOption.OpenIfExists);
@@ -32,6 +39,7 @@ namespace SQLiteFluent.Models
 		{
 			string name = path.Trim(new char[] { '\"' }).Split("\\").ToList().Last();
 			File.Copy(path.Trim(new char[] { '\"' }), Path.Combine(ApplicationData.Current.LocalFolder.Path, name), true);
+			TestConnectionAfterImport(Path.Combine(ApplicationData.Current.LocalFolder.Path, name));
 		}
 
 		public static void DeleteDatabase(string name)
@@ -200,7 +208,7 @@ namespace SQLiteFluent.Models
 		{
 			string[] columns = data.Keys.ToArray();
 			string[] values = data.Values.ToArray();
-            using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
+			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
 			sqliteConnection.Open();
 			SqliteCommand cmd = new($"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES (\"{string.Join("\", \"", values)}\");", sqliteConnection);
 			cmd.ExecuteNonQuery();
@@ -301,11 +309,34 @@ namespace SQLiteFluent.Models
 			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
 			sqliteConnection.Open();
 			selectedItem.Children.Clear();
-			foreach(DatabaseTreeItem item in GetDatabaseTableFields(selectedItem.Name, sqliteConnection))
+			foreach (DatabaseTreeItem item in GetDatabaseTableFields(selectedItem.Name, sqliteConnection))
 			{
 				selectedItem.Children.Add(item);
 			}
 			sqliteConnection.Dispose();
+		}
+
+		private static void TestConnectionAfterImport(string path)
+		{
+			using SqliteConnection sqliteConnection = GetConnection(path, true);
+			try
+			{
+				sqliteConnection.Open();
+				SqliteCommand cmd = new($"pragma quick_check;", sqliteConnection);
+				cmd.ExecuteNonQuery();
+
+			}
+			catch (Exception e)
+			{
+				sqliteConnection.Dispose();
+				SqliteConnection.ClearPool(sqliteConnection);
+				File.Delete(path);
+				throw new Exception(e.Message);
+			}
+			finally
+			{
+				sqliteConnection.Dispose();
+			}
 		}
 	}
 }

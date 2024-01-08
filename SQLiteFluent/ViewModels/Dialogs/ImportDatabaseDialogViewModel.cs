@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SQLiteFluent.Models;
 using System;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -8,13 +9,28 @@ namespace SQLiteFluent.ViewModels.Dialogs
 {
 	public class ImportDatabaseDialogViewModel : ObservableObject
 	{
-		private string _path;
+		private string _name = null;
+
+		public string Name
+		{
+			get { return _name; }
+			set { _name = value; OnPropertyChanged(nameof(Name)); }
+		}
+
+		private string _path = null;
 
 		public string Path
 		{
 			get { return _path; }
-			set { _path = value; OnPropertyChanged(Path); }
-			//TODO not updaing the UI
+			set { _path = value; OnPropertyChanged(nameof(Path)); }
+		}
+
+		private bool _showError;
+
+		public bool ShowError
+		{
+			get { return _showError; }
+			set { _showError = value; OnPropertyChanged(nameof(ShowError)); }
 		}
 
 		public IRelayCommand PickAFileCommand { get; private set; }
@@ -39,13 +55,16 @@ namespace SQLiteFluent.ViewModels.Dialogs
 			StorageFile file = await openPicker.PickSingleFileAsync();
 			if (file != null)
 			{
-				// Application now has read/write access to the picked file
-				Path = file.Name;
+				Name = file.Name;
+				Path = file.Path;
+				ShowError = DataAccess.DoesFileExistAsync(Name);
 			}
 			else
 			{
-				Path = "Operation cancelled.";
+				Name = null;
+				Path = null;
 			}
 		}
+
 	}
 }

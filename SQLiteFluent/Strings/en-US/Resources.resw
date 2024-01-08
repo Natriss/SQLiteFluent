@@ -199,8 +199,7 @@
     <value>Choose file</value>
   </data>
   <data name="ImportDatabaseDialog.Text" xml:space="preserve">
-    <value>Give the path of your SQLite Database.
-Existing database will be overwritten.</value>
+    <value>Select a DB file.</value>
   </data>
   <data name="ImportDatabaseDialogCloseBtn" xml:space="preserve">
     <value>Cancel</value>
@@ -210,6 +209,9 @@ Existing database will be overwritten.</value>
   </data>
   <data name="ImportDatabaseDialogTitle" xml:space="preserve">
     <value>Import database</value>
+  </data>
+  <data name="ImportDatabaseErrorDialog.Text" xml:space="preserve">
+    <value>There is already a database with that name. The old database will be overwritten.</value>
   </data>
   <data name="InsertDataIntoTable.Text" xml:space="preserve">
     <value>Insert data into table</value>
