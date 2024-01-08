@@ -54,17 +54,34 @@ namespace SQLiteFluent.ViewModels
 		}
 		private async void AddDatabaseAsync()
 		{
-			if (await DialogService.AddDatabaseAsync() == ContentDialogResult.Primary)
+			try
 			{
-				DataAccess.RefreshDatabases();
+				if (await DialogService.AddDatabaseAsync() == ContentDialogResult.Primary)
+				{
+					DataAccess.RefreshDatabases();
+					InfoBarService.Show("Database added", "Your database had been added.", InfoBarSeverity.Success);
+				}
+
+			}
+			catch (System.Exception e)
+			{
+				InfoBarService.Show("Error", e.Message, InfoBarSeverity.Error);
 			}
 		}
 
 		private async void ImportDatabaseAsync()
 		{
-			if (await DialogService.ImportDatabaseAsync() == ContentDialogResult.Primary)
+			try
 			{
-				DataAccess.RefreshDatabases();
+				if (await DialogService.ImportDatabaseAsync() == ContentDialogResult.Primary)
+				{
+					DataAccess.RefreshDatabases();
+					InfoBarService.Show("Database imported", "Your database had been imported.", InfoBarSeverity.Success);
+				}
+			}
+			catch (System.Exception e)
+			{
+				InfoBarService.Show("Error", e.Message, InfoBarSeverity.Error);
 			}
 		}
 

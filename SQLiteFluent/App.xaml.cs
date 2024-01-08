@@ -12,6 +12,7 @@ namespace SQLiteFluent
 	public partial class App : Application
 	{
 		private static Window _window;
+		public static Window Window { get { return _window; } }
 
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code

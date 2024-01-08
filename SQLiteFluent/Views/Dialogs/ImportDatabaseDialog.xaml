@@ -6,14 +6,23 @@
     xmlns:local="using:SQLiteFluent.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SQLiteFluent.Converters"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
 
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" x:Uid="ImportDatabaseDialog" />
-        <TextBox Grid.Row="1" Text="{x:Bind ViewModel.Path, Mode=TwoWay}" />
+        <StackPanel Grid.Row="1" Spacing="8" Orientation="Horizontal">
+            <Button x:Uid="ImportDatabaseBtn" Command="{x:Bind ViewModel.PickAFileCommand}" />
+            <TextBlock Text="{x:Bind ViewModel.Name, Mode=OneWay}" VerticalAlignment="Center" />
+        </StackPanel>
+        <TextBlock Grid.Row="2" x:Uid="ImportDatabaseErrorDialog" Foreground="{StaticResource SystemErrorTextColor}" Visibility="{x:Bind ViewModel.ShowError, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" />
     </Grid>
 </Page>
