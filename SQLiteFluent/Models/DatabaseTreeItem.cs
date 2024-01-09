@@ -25,6 +25,7 @@ namespace SQLiteFluent.Models
 		public IRelayCommand Top1000TableItemsCommand { get; private set; }
 		public IRelayCommand InsertDataIntoTableCommand { get; private set; }
 		public IRelayCommand AddColumnIntoTableCommand { get; private set; }
+		public IRelayCommand AddTableCommand { get; private set; }
 		public IRelayCommand DeleteDataInsideTableCommand { get; private set; }
 
 		private ObservableCollection<DatabaseTreeItem> _children;
@@ -72,6 +73,12 @@ namespace SQLiteFluent.Models
 			InsertDataIntoTableCommand = new RelayCommand<object>(InsertDataIntoTableAsync);
 			AddColumnIntoTableCommand = new RelayCommand<object>(AddColumnIntoTableAsync);
 			DeleteDataInsideTableCommand = new RelayCommand<object>(DeleteDataInsideTableAsync);
+			AddTableCommand = new RelayCommand<object>(AddTable);
+		}
+
+		private void AddTable(object obj)
+		{
+			InfoBarService.Show("Info", "Not implemented");
 		}
 
 		private async void AddColumnIntoTableAsync(object sender)

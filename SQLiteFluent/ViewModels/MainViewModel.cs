@@ -5,6 +5,7 @@ using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using SQLiteFluent.Services;
 using SQLiteFluent.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -43,6 +44,7 @@ namespace SQLiteFluent.ViewModels
 		public IRelayCommand ExecuteQueryCommand { get; private set; }
 		public IRelayCommand OpenSettingsCommand { get; private set; }
 		public IRelayCommand OpenHelpRecipeCommand { get; private set; }
+		public IRelayCommand DeleteRecordFromTableCommand { get; private set; }
 
 		public MainViewModel()
 		{
@@ -51,7 +53,14 @@ namespace SQLiteFluent.ViewModels
 			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
 			OpenSettingsCommand = new RelayCommand(NavigateToSettings);
 			OpenHelpRecipeCommand = new RelayCommand(NavigateToRecipe);
+			DeleteRecordFromTableCommand = new RelayCommand<object>(DeleteRecordFromTable);
 		}
+
+		private void DeleteRecordFromTable(object obj)
+		{
+			InfoBarService.Show("Info", "Not implemented");
+		}
+
 		private async void AddDatabaseAsync()
 		{
 			try
@@ -87,8 +96,15 @@ namespace SQLiteFluent.ViewModels
 
 		private void ExecuteQuery()
 		{
-			Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
-			AppHelpers.FillTable(table.Columns, table.Rows);
+			try
+			{
+				Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
+				AppHelpers.FillTable(table.Columns, table.Rows);
+			}
+			catch (System.Exception e)
+			{
+				InfoBarService.Show("Error", e.Message, InfoBarSeverity.Error);
+			}
 		}
 
 		private void NavigateToSettings()

@@ -29,6 +29,7 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
+                        <MenuFlyoutItem x:Uid="AddTableFlyout" Command="{x:Bind AddTableCommand}" CommandParameter="{x:Bind}" Icon="Add" />
                         <MenuFlyoutItem x:Uid="RefreshTables" Command="{x:Bind RefreshTablesCommand}" CommandParameter="{x:Bind}" Icon="Refresh" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
@@ -121,7 +122,7 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0" x:Name="infoBarGrid" Loaded="infoBarGrid_Loaded" Grid.ColumnSpan="2" Canvas.ZIndex="1" MaxWidth="400" Margin="8" HorizontalAlignment="Right" />
+        <Grid Grid.Row="0" Grid.Column="0" x:Name="infoBarGrid" Loaded="infoBarGrid_Loaded" Grid.ColumnSpan="2" Canvas.ZIndex="1" MaxWidth="400" HorizontalAlignment="Right" />
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -242,8 +243,13 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>-->
-            <ScrollViewer Grid.Row="1">
+            <ScrollView Grid.Row="1">
                 <ListView ItemsSource="{x:Bind ViewModel.Rows, Mode=OneWay}">
+                    <ListView.Resources>
+                        <MenuFlyout x:Key="DeleteRecordFlyout">
+                            <MenuFlyoutItem x:Uid="DeleteRecordFlyout" Command="{x:Bind ViewModel.DeleteRecordFromTableCommand}" Icon="Delete" />
+                        </MenuFlyout>
+                    </ListView.Resources>
                     <ListView.Header>
                         <ItemsControl ItemsSource="{x:Bind ViewModel.Columns, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>
@@ -260,7 +266,7 @@
                     </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl ItemsSource="{Binding}" ContextFlyout="{StaticResource DeleteRecordFlyout}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <controls:UniformGrid Columns="{Binding Count, Mode=OneWay}" Rows="1" Orientation="Horizontal" />
@@ -275,7 +281,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </ScrollViewer>
+            </ScrollView>
 
             <controls:GridSplitter Grid.Row="1" Height="16" VerticalAlignment="Top">
                 <controls:GridSplitter.RenderTransform>

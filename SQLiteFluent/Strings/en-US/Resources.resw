@@ -186,6 +186,9 @@
   <data name="DeleteDatabase.Text" xml:space="preserve">
     <value>Delete database</value>
   </data>
+  <data name="DeleteRecordFlyout.Text" xml:space="preserve">
+    <value>Delete record</value>
+  </data>
   <data name="DeleteTable.Text" xml:space="preserve">
     <value>Delete table</value>
   </data>

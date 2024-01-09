@@ -155,12 +155,27 @@ namespace SQLiteFluent.Models
 		public static Table ExecuteAnyQuery(string dbpath, string query)
 		{
 			using SqliteConnection db = GetConnection(dbpath, true);
-			db.Open();
-			SqliteCommand command = new(query, db);
-			SqliteDataReader sqliteDataReader = command.ExecuteReader();
-			Table table = GetTable(sqliteDataReader);
-			db.Dispose();
-			return table;
+			try
+			{
+				db.Open();
+				SqliteCommand command = new(query, db)
+				{
+					Transaction = db.BeginTransaction()
+				};
+				SqliteDataReader sqliteDataReader = command.ExecuteReader();
+				Table table = GetTable(sqliteDataReader);
+				db.Dispose();
+				return table;
+			}
+			catch (Exception e)
+			{
+				db.Close();
+				throw new Exception(e.Message);
+			}
+			finally
+			{
+				db.Dispose();
+			}
 		}
 
 		private static Table GetTable(SqliteDataReader sqliteDataReader)
