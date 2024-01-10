@@ -32,7 +32,7 @@
                         <Run Text="SQLiteFluent"/>
                         <Run Text="{x:Bind ViewModel.Version}"/>
                         <LineBreak/>
-                        <Run Text="©️ 2024 dragon-software"/>
+                        <Run Text="©️ 2024 Dragon Software"/>
                     </TextBlock>
                 </Grid>
 
