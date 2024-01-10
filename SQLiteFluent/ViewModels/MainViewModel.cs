@@ -93,6 +93,7 @@ namespace SQLiteFluent.ViewModels
 			{
 				Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
 				AppHelpers.FillTable(table.Columns, table.Rows);
+				InfoBarService.Show("Success", "Query was successfully executed.", InfoBarSeverity.Success);
 			}
 			catch (System.Exception e)
 			{
