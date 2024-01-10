@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
-    xmlns:models="using:SQLiteFluent.Models" xmlns:viewmodels="using:SQLiteFluent.ViewModels"
+    xmlns:models="using:SQLiteFluent.Models" xmlns:converters="using:SQLiteFluent.Converters"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="DatabaseTemplate" x:DataType="models:DatabaseTreeItem">
@@ -29,12 +29,11 @@
             <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="AddTableFlyout" Command="{x:Bind AddTableCommand}" CommandParameter="{x:Bind}" Icon="Add" />
                         <MenuFlyoutItem x:Uid="RefreshTables" Command="{x:Bind RefreshTablesCommand}" CommandParameter="{x:Bind}" Icon="Refresh" />
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE005;" Margin="0,0,8,0" />
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <TextBlock Text="Tables" />
                         <TextBlock Foreground="Gray" >(<Run Text="{x:Bind Children.Count, Mode=OneWay}" />)</TextBlock>
@@ -73,7 +72,7 @@
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE005;" Margin="0,0,8,0" />
                     <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
                 </StackPanel>
             </TreeViewItem>
@@ -100,10 +99,11 @@
             </TreeViewItem>
         </DataTemplate>
 
+        <converters:PrimaryKeyToGlyphConverter x:Key="PrimaryKeyToGlyphConverter" />
         <DataTemplate x:Key="FieldTemplate" x:DataType="models:DatabaseTreeItem">
             <TreeViewItem>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="..\Assets\StoreLogo.png" Width="16" Height="16" Margin="0,0,16,0" />
+                    <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="{x:Bind IsPrimaryKey, Mode=OneWay, Converter={StaticResource PrimaryKeyToGlyphConverter}}" Margin="0,0,8,0" />
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
                         <TextBlock Text="{x:Bind FieldType, Mode=OneWay}" Foreground="Gray" />
@@ -141,12 +141,12 @@
                     <MenuFlyout Placement="Bottom">
                         <MenuFlyoutItem x:Uid="AddDatabase" Command="{x:Bind ViewModel.AddDatabaseFlyoutCommand}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE001;" />
+                                <FontIcon Glyph="&#xE710;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem x:Uid="ImportDatabase" Command="{x:Bind ViewModel.ImportDatabaseFlyoutCommand}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Style="{StaticResource SQLiteFluentIcons}" Glyph="&#xE002;" />
+                                <FontIcon Glyph="&#xE8B5;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -245,11 +245,6 @@
             </ListView>-->
             <ScrollView Grid.Row="1">
                 <ListView ItemsSource="{x:Bind ViewModel.Rows, Mode=OneWay}">
-                    <ListView.Resources>
-                        <MenuFlyout x:Key="DeleteRecordFlyout">
-                            <MenuFlyoutItem x:Uid="DeleteRecordFlyout" Command="{x:Bind ViewModel.DeleteRecordFromTableCommand}" Icon="Delete" />
-                        </MenuFlyout>
-                    </ListView.Resources>
                     <ListView.Header>
                         <ItemsControl ItemsSource="{x:Bind ViewModel.Columns, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>
@@ -266,7 +261,7 @@
                     </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding}" ContextFlyout="{StaticResource DeleteRecordFlyout}">
+                            <ItemsControl ItemsSource="{Binding}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <controls:UniformGrid Columns="{Binding Count, Mode=OneWay}" Rows="1" Orientation="Horizontal" />

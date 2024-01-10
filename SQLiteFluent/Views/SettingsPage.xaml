@@ -29,9 +29,10 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="About this app" Style="{StaticResource BodyStrongTextBlockStyle}" />
                     <TextBlock Grid.Row="1">
-                        <Run Text="SQLiteFluent 0.0.0.0"/>
+                        <Run Text="SQLiteFluent"/>
+                        <Run Text="{x:Bind ViewModel.Version}"/>
                         <LineBreak/>
-                        <Run Text="©️ 2023 dragon-software"/>
+                        <Run Text="©️ 2024 dragon-software"/>
                     </TextBlock>
                 </Grid>
 

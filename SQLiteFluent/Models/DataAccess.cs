@@ -115,6 +115,7 @@ namespace SQLiteFluent.Models
 					Name = getAllFieldsDataReader.GetString(1),
 					FieldType = getAllFieldsDataReader.GetString(2),
 					Type = TreeType.Field,
+					IsPrimaryKey = getAllFieldsDataReader.GetBoolean(5),
 				};
 				fieldItems.Add(databaseTreeItem);
 			}

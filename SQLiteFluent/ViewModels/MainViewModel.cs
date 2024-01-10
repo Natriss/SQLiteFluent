@@ -44,7 +44,6 @@ namespace SQLiteFluent.ViewModels
 		public IRelayCommand ExecuteQueryCommand { get; private set; }
 		public IRelayCommand OpenSettingsCommand { get; private set; }
 		public IRelayCommand OpenHelpRecipeCommand { get; private set; }
-		public IRelayCommand DeleteRecordFromTableCommand { get; private set; }
 
 		public MainViewModel()
 		{
@@ -53,12 +52,6 @@ namespace SQLiteFluent.ViewModels
 			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
 			OpenSettingsCommand = new RelayCommand(NavigateToSettings);
 			OpenHelpRecipeCommand = new RelayCommand(NavigateToRecipe);
-			DeleteRecordFromTableCommand = new RelayCommand<object>(DeleteRecordFromTable);
-		}
-
-		private void DeleteRecordFromTable(object obj)
-		{
-			InfoBarService.Show("Info", "Not implemented");
 		}
 
 		private async void AddDatabaseAsync()
