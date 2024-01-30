@@ -81,18 +81,18 @@ namespace SQLiteFluent.Models
 			if (await DialogService.AddColumnIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
 				DataAccess.RefreshTableFields(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem);
-				InfoBarService.Show("Insert column into table", $"Your entry has successfully been added to the table \"{selectedItem.Name}\".", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
+				InfoBarService.ShowSuccess(string.Format("AddedColumnToTable".GetLocalized(), selectedItem.Name));
 			}
 		}
 
 		private async void DeleteDataInsideTableAsync(object sender)
 		{
-			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to clear out the table?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			if (await DialogService.AskBeforeDeletionAsync("AskClearTable".GetLocalized()) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
 				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
 				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
 				DataAccess.ClearTable(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem.Name);
-				InfoBarService.Show("Clear table", $"Table \"{selectedItem.Name}\" has been cleared.", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
+				InfoBarService.ShowSuccess(string.Format("TableHasBeenCleared".GetLocalized(), selectedItem.Name));
 			}
 		}
 
@@ -102,13 +102,13 @@ namespace SQLiteFluent.Models
 			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
 			if (await DialogService.InsertDataIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
-				InfoBarService.Show("Insert data into table", $"Your entry has successfully been added to the table \"{selectedItem.Name}\".", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
+				InfoBarService.ShowSuccess(string.Format("DataHasBeenAddedToTable".GetLocalized(), selectedItem.Name));
 			}
 		}
 
 		private async void DeleteDatabaseAsync(object sender)
 		{
-			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to delete the database?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			if (await DialogService.AskBeforeDeletionAsync("AskDeleteDatabase".GetLocalized()) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
 				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
 				IEnumerable<Database> db = AppHelpers.Databases.Where(x => x.Name == selectedItem.Name);
@@ -127,7 +127,7 @@ namespace SQLiteFluent.Models
 
 		private async void DeleteTableAsync(object sender)
 		{
-			if (await DialogService.AskBeforeDeletionAsync("Are you sure you want to delete the table?") == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			if (await DialogService.AskBeforeDeletionAsync("AskDeleteTable".GetLocalized()) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
 			{
 				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
 				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);

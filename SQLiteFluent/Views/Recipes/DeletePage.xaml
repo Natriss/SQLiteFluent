@@ -18,8 +18,8 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
-                <controls:RecipeControl Query="DELETE FROM [table name];" Information="The DELETE statement is used to remove all data from a table." />
-                <controls:RecipeControl Query="DELETE FROM [table name] WHERE [condition];" Information="The DELETE statement with WHERE clause is used to remove data from a table." />
+                <controls:RecipeControl x:Uid="RecipeDelete" Query="DELETE FROM [table name];" />
+                <controls:RecipeControl x:Uid="RecipeDeleteWhere" Query="DELETE FROM [table name] WHERE [condition];" />
             </StackPanel>
         </ScrollView>
     </Grid>

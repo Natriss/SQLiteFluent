@@ -18,11 +18,11 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
-                <controls:RecipeControl Query="SELECT [column name, ... | *] FROM [table name];" Information="The SELECT statement is used to get data from specified columns or all data from a table." />
-                <controls:RecipeControl Query="WHERE [conditions];" Information="After a SELECT statement the WHERE is used to create an condition and when the condition is met. You'll get that that specific data." />
-                <controls:RecipeControl Query="GROUP BY [column name, ...];" Information="After a WHERE statement the GROUP BY is used to group your data by specified columns." />
-                <controls:RecipeControl Query="ORDER BY [column name, ...] [ASC | DESC];" Information="At the end of your query the ORDER BY is used to sort your data by specified columns and if it needs to be ASCENDING or DESCENDING." />
-                <controls:RecipeControl Query="SELECT * FROM [table name] LIMIT [amount of rows];" Information="Before the ORDER BY or at the end of the query the Limits the rows returned in a query result set to a specified number of rows or percentage of rows in SQLite." />
+                <controls:RecipeControl x:Uid="RecipeSelect" Query="SELECT [column name, ... | *] FROM [table name];" />
+                <controls:RecipeControl x:Uid="RecipeSelectWhere" Query="WHERE [conditions];" />
+                <controls:RecipeControl x:Uid="RecipeSelectGroupBy" Query="GROUP BY [column name, ...];" />
+                <controls:RecipeControl x:Uid="RecipeSelectOrderBy" Query="ORDER BY [column name, ...] [ASC | DESC];" />
+                <controls:RecipeControl x:Uid="RecipeSelectLimit" Query="SELECT * FROM [table name] LIMIT [amount of rows];" />
             </StackPanel>
         </ScrollView>
     </Grid>

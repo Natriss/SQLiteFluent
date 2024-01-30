@@ -17,7 +17,7 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
-                <controls:RecipeControl Query="UPDATE [table name] SET [column name = value, ...] WHERE [condition];" Information="The UPDATE statement is used to modify existing data from the table." />
+                <controls:RecipeControl x:Uid="RecipeUpdateWhere" Query="UPDATE [table name] SET [column name = value, ...] WHERE [condition];" />
             </StackPanel>
         </ScrollView>
     </Grid>

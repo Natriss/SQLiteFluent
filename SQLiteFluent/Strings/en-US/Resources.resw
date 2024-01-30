@@ -153,6 +153,9 @@
   <data name="AddDatabaseDialogTitle" xml:space="preserve">
     <value>Add database</value>
   </data>
+  <data name="AddedColumnToTable" xml:space="preserve">
+    <value>Column has successfully been added to the table \"{0}\".</value>
+  </data>
   <data name="AddTableFlyout.Text" xml:space="preserve">
     <value>Add table</value>
   </data>
@@ -167,6 +170,15 @@
   </data>
   <data name="AskBeforeDeletionDialogTitlePrimaryBtn" xml:space="preserve">
     <value>Yes, I'm sure</value>
+  </data>
+  <data name="AskClearTable" xml:space="preserve">
+    <value>Are you sure you want to clear out the table?</value>
+  </data>
+  <data name="AskDeleteDatabase" xml:space="preserve">
+    <value>Are you sure you want to delete the database?</value>
+  </data>
+  <data name="AskDeleteTable" xml:space="preserve">
+    <value>Are you sure you want to delete the table?</value>
   </data>
   <data name="BackBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Back</value>
@@ -183,6 +195,15 @@
   <data name="Database.Text" xml:space="preserve">
     <value>Database</value>
   </data>
+  <data name="DatabaseHasBeenAdded" xml:space="preserve">
+    <value>Database has been added.</value>
+  </data>
+  <data name="DatabaseHasBeenImported" xml:space="preserve">
+    <value>Database has been imported.</value>
+  </data>
+  <data name="DataHasBeenAddedToTable" xml:space="preserve">
+    <value>Your entry has successfully been added to the table \"{0}\".</value>
+  </data>
   <data name="DeleteDatabase.Text" xml:space="preserve">
     <value>Delete database</value>
   </data>
@@ -191,6 +212,9 @@
   </data>
   <data name="DeleteTable.Text" xml:space="preserve">
     <value>Delete table</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
   <data name="Execute.Text" xml:space="preserve">
     <value>Execute</value>
@@ -216,6 +240,9 @@
   <data name="ImportDatabaseErrorDialog.Text" xml:space="preserve">
     <value>There is already a database with that name. The old database will be overwritten.</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="InsertDataIntoTable.Text" xml:space="preserve">
     <value>Insert data into table</value>
   </data>
@@ -228,17 +255,47 @@
   <data name="InsertDataIntoTableDialogTitle" xml:space="preserve">
     <value>Insert data into the table</value>
   </data>
+  <data name="QueryWasExecuted" xml:space="preserve">
+    <value>Query was executed.</value>
+  </data>
   <data name="RecipeBtn.Padding" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="RecipeBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>SQLite recipe book</value>
   </data>
+  <data name="RecipeDelete.Information" xml:space="preserve">
+    <value>The DELETE statement is used to remove all data from a table.</value>
+  </data>
+  <data name="RecipeDeleteWhere.Information" xml:space="preserve">
+    <value>The DELETE statement with WHERE clause is used to remove data from a table.</value>
+  </data>
+  <data name="RecipeDropTable.Information" xml:space="preserve">
+    <value>The DROP TABLE remove the table and all it's data.</value>
+  </data>
   <data name="RecipePaneHeader.Text" xml:space="preserve">
     <value>SQLite commands</value>
   </data>
+  <data name="RecipeSelect.Information" xml:space="preserve">
+    <value>The SELECT statement is used to get data from specified columns or all data from a table.</value>
+  </data>
+  <data name="RecipeSelectGroupBy.Information" xml:space="preserve">
+    <value>After a WHERE statement the GROUP BY is used to group your data by specified columns.</value>
+  </data>
+  <data name="RecipeSelectLimit.Information" xml:space="preserve">
+    <value>Before the ORDER BY or at the end of the query the Limits the rows returned in a query result set to a specified number of rows or percentage of rows in SQLite.</value>
+  </data>
+  <data name="RecipeSelectOrderBy.Information" xml:space="preserve">
+    <value>At the end of your query the ORDER BY is used to sort your data by specified columns and if it needs to be ASCENDING or DESCENDING.</value>
+  </data>
+  <data name="RecipeSelectWhere.Information" xml:space="preserve">
+    <value>After a SELECT statement the WHERE is used to create an condition and when the condition is met. You'll get that that specific data.</value>
+  </data>
   <data name="RecipeTitle.Text" xml:space="preserve">
     <value>SQLite recipe book</value>
+  </data>
+  <data name="RecipeUpdateWhere.Information" xml:space="preserve">
+    <value>The UPDATE statement is used to modify existing data from the table.</value>
   </data>
   <data name="RefreshDatabaseList.Text" xml:space="preserve">
     <value>Refresh database list</value>
@@ -285,6 +342,9 @@
   <data name="RenameTableDialogTitle" xml:space="preserve">
     <value>Rename Table</value>
   </data>
+  <data name="SelectDatabasePlaceholderText.PlaceholderText" xml:space="preserve">
+    <value>Select database...</value>
+  </data>
   <data name="SelectTop1000Rows.Text" xml:space="preserve">
     <value>Select top 1000 rows</value>
   </data>
@@ -296,5 +356,14 @@
   </data>
   <data name="SettingsTitle.Text" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="TableHasBeenCleared" xml:space="preserve">
+    <value>Table \"{0}\" has been cleared.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

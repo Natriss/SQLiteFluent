@@ -186,7 +186,7 @@
                         </Button.Content>
                     </Button>
 
-                    <ComboBox Grid.Column="1" ItemsSource="{x:Bind ViewModel.ComboboxItemSource, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedComboboxItem, Mode=TwoWay}" VerticalAlignment="Center">
+                    <ComboBox x:Uid="SelectDatabasePlaceholderText" Grid.Column="1" ItemsSource="{x:Bind ViewModel.ComboboxItemSource, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedComboboxItem, Mode=TwoWay}" VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate x:DataType="models:Database" >
                                 <TextBlock Text="{x:Bind Name}" />

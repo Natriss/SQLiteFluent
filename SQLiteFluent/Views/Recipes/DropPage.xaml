@@ -17,7 +17,7 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
-                <controls:RecipeControl Query="DROP TABLE [table name];" Information="The DROP TABLE remove the table and all it's data." />
+                <controls:RecipeControl x:Uid="RecipeDropTable" Query="DROP TABLE [table name];" />
             </StackPanel>
         </ScrollView>
     </Grid>

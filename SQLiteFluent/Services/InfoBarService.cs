@@ -35,6 +35,26 @@ namespace SQLiteFluent.Services
 			ShowInfoBar(infoBar);
 		}
 
+		public static void ShowInfo(string message)
+		{
+			Show("Info".GetLocalized(), message, InfoBarSeverity.Informational);
+		}
+
+		public static void ShowSuccess(string message)
+		{
+			Show("Success".GetLocalized(), message, InfoBarSeverity.Success);
+		}
+
+		public static void ShowError(string message)
+		{
+			Show("Error".GetLocalized(), message, InfoBarSeverity.Error);
+		}
+
+		public static void ShowWarning(string message)
+		{
+			Show("Warning".GetLocalized(), message, InfoBarSeverity.Warning);
+		}
+
 		private static void ShowInfoBar(InfoBar infoBar)
 		{
 			AppHelpers.InfoBarGrid.Children.Clear();

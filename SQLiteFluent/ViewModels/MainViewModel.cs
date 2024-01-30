@@ -61,13 +61,13 @@ namespace SQLiteFluent.ViewModels
 				if (await DialogService.AddDatabaseAsync() == ContentDialogResult.Primary)
 				{
 					DataAccess.RefreshDatabases();
-					InfoBarService.Show("Database added", "Your database had been added.", InfoBarSeverity.Success);
+					InfoBarService.ShowSuccess("DatabaseHasBeenAdded".GetLocalized());
 				}
 
 			}
-			catch (System.Exception e)
+			catch (Exception e)
 			{
-				InfoBarService.Show("Error", e.Message, InfoBarSeverity.Error);
+				InfoBarService.ShowError(e.Message);
 			}
 		}
 
@@ -78,12 +78,12 @@ namespace SQLiteFluent.ViewModels
 				if (await DialogService.ImportDatabaseAsync() == ContentDialogResult.Primary)
 				{
 					DataAccess.RefreshDatabases();
-					InfoBarService.Show("Database imported", "Your database had been imported.", InfoBarSeverity.Success);
+					InfoBarService.ShowSuccess("DatabaseHasBeenImported".GetLocalized());
 				}
 			}
-			catch (System.Exception e)
+			catch (Exception e)
 			{
-				InfoBarService.Show("Error", e.Message, InfoBarSeverity.Error);
+				InfoBarService.ShowError(e.Message);
 			}
 		}
 
@@ -93,11 +93,11 @@ namespace SQLiteFluent.ViewModels
 			{
 				Table table = DataAccess.ExecuteAnyQuery(SelectedComboboxItem.Path, Query);
 				AppHelpers.FillTable(table.Columns, table.Rows);
-				InfoBarService.Show("Success", "Query was successfully executed.", InfoBarSeverity.Success);
+				InfoBarService.ShowSuccess("QueryWasExecuted".GetLocalized());
 			}
-			catch (System.Exception e)
+			catch (Exception e)
 			{
-				InfoBarService.Show("Error", e.Message, InfoBarSeverity.Error);
+				InfoBarService.ShowError(e.Message);
 			}
 		}
 
