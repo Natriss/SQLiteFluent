@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using SQLiteFluent.Helpers;
 using SQLiteFluent.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,7 +33,12 @@ namespace SQLiteFluent.ViewModels.Dialogs
 
 		private void GenerateForm(DatabaseTreeItem column)
 		{
-			Grid grid = new();
+            if (SettingsHelper.AutoIncrement && column.IsPrimaryKey)
+            {
+				return;
+            }
+
+            Grid grid = new();
 			RowDefinition rowDefinitionTitle = new()
 			{
 				Height = GridLength.Auto
@@ -53,6 +59,7 @@ namespace SQLiteFluent.ViewModels.Dialogs
 			TextBox textBox = new()
 			{
 				Name = column.Name,
+				PlaceholderText = column.FieldDefaultValue,
 			};
 			Grid.SetRow(textBox, 1);
 
@@ -69,7 +76,7 @@ namespace SQLiteFluent.ViewModels.Dialogs
 			foreach (Grid element in grids.Cast<Grid>())
 			{
 				UIElement textBox = element.Children.Where(item => item.GetType() == typeof(TextBox)).First();
-				keyValuePairs.Add(((TextBox)textBox).Name, ((TextBox)textBox).Text);
+				keyValuePairs.Add(((TextBox)textBox).Name, string.IsNullOrWhiteSpace(((TextBox)textBox).Text) ? ((TextBox)textBox).PlaceholderText : ((TextBox)textBox).Text);
 			}
 			return keyValuePairs;
 		}

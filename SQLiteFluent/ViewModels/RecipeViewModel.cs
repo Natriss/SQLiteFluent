@@ -16,6 +16,7 @@ namespace SQLiteFluent.ViewModels
 			new PaneNavLink() { Name = "Update", CodeGlyph = "\uE734", Page = typeof(UpdatePage) },
 			new PaneNavLink() { Name = "Delete", CodeGlyph = "\uE734", Page = typeof(DeletePage) },
 			new PaneNavLink() { Name = "Drop", CodeGlyph = "\uE734", Page = typeof(DropPage) },
+			new PaneNavLink() { Name = "Create", CodeGlyph = "\uE734", Page = typeof(CreatePage) },
 		};
 
 		public ObservableCollection<PaneNavLink> ItemSource { get { return _items; } }

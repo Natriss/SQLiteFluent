@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SQLiteFluent.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
     <Grid Margin="12,0" RowSpacing="12">
@@ -20,9 +20,16 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" RowSpacing="6">
+                <Grid Grid.Row="0">
+                    <controls:SettingsCard x:Uid="SettingsCardAutoIncrement">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AutoIncrement, Mode=TwoWay}"/>
+                    </controls:SettingsCard>
+                </Grid>
+
+                <Grid Grid.Row="1" RowSpacing="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -36,7 +43,7 @@
                     </TextBlock>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>

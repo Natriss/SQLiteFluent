@@ -154,7 +154,7 @@
     <value>Add database</value>
   </data>
   <data name="AddedColumnToTable" xml:space="preserve">
-    <value>Column has successfully been added to the table \"{0}\".</value>
+    <value>Column has successfully been added to the table "{0}".</value>
   </data>
   <data name="AddTableFlyout.Text" xml:space="preserve">
     <value>Add table</value>
@@ -202,7 +202,7 @@
     <value>Database has been imported.</value>
   </data>
   <data name="DataHasBeenAddedToTable" xml:space="preserve">
-    <value>Your entry has successfully been added to the table \"{0}\".</value>
+    <value>Your entry has successfully been added to the table "{0}".</value>
   </data>
   <data name="DeleteDatabase.Text" xml:space="preserve">
     <value>Delete database</value>
@@ -263,6 +263,11 @@
   </data>
   <data name="RecipeBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>SQLite recipe book</value>
+  </data>
+  <data name="RecipeCreateTable.Information" xml:space="preserve">
+    <value>The CREATE TABLE statement is used to create a new table. The column name is case sensitive and for the type you can choose one of the following: TEXT, NUMBER, INTEGER, BLOB, REAL.
+Optional: if the column is a primary key then use PRIMARY KEY or UNIQUE for a unique key.
+Is the column NULL or NOT NULL. You can also use DEFAULT [value]. This will auto result in NOT NULL.</value>
   </data>
   <data name="RecipeDelete.Information" xml:space="preserve">
     <value>The DELETE statement is used to remove all data from a table.</value>
@@ -354,6 +359,12 @@
   <data name="SettingsBtn.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsCardAutoIncrement.Description" xml:space="preserve">
+    <value>When there is a primary key found the corrsponding field for it will be removed and can't be filled in manually.</value>
+  </data>
+  <data name="SettingsCardAutoIncrement.Header" xml:space="preserve">
+    <value>Auto increment</value>
+  </data>
   <data name="SettingsTitle.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -361,7 +372,7 @@
     <value>Success</value>
   </data>
   <data name="TableHasBeenCleared" xml:space="preserve">
-    <value>Table \"{0}\" has been cleared.</value>
+    <value>Table "{0}" has been cleared.</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

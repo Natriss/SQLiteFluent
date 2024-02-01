@@ -115,6 +115,8 @@ namespace SQLiteFluent.Models
 					Name = getAllFieldsDataReader.GetString(1),
 					FieldType = getAllFieldsDataReader.GetString(2),
 					Type = TreeType.Field,
+					IsFieldNotNull = getAllFieldsDataReader.GetBoolean(3),
+					FieldDefaultValue = getAllFieldsDataReader.IsDBNull(4) ? null : getAllFieldsDataReader.GetString(4),
 					IsPrimaryKey = getAllFieldsDataReader.GetBoolean(5),
 				};
 				fieldItems.Add(databaseTreeItem);
@@ -228,9 +230,26 @@ namespace SQLiteFluent.Models
 			string[] values = data.Values.ToArray();
 			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
 			sqliteConnection.Open();
-			SqliteCommand cmd = new($"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES (\"{string.Join("\", \"", values)}\");", sqliteConnection);
-			cmd.ExecuteNonQuery();
-			sqliteConnection.Dispose();
+			SqliteTransaction transaction = sqliteConnection.BeginTransaction();
+			try
+			{
+				SqliteCommand cmd = new($"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES (\"{string.Join("\", \"", values)}\");", sqliteConnection)
+				{
+					Transaction = transaction,
+				};
+				cmd.ExecuteNonQuery();
+			}
+			catch (Exception e)
+			{
+				transaction.Rollback();
+				sqliteConnection.Close();
+				throw new Exception(e.Message);
+			}
+			finally
+			{
+				transaction.Commit();
+				sqliteConnection.Dispose();
+			}
 		}
 
 		public static ObservableCollection<DatabaseTreeItem> RefreshTables(DatabaseTreeItem selectedItem)
@@ -314,12 +333,29 @@ namespace SQLiteFluent.Models
 		{
 			using SqliteConnection sqliteConnection = GetConnection(db.Path, true);
 			sqliteConnection.Open();
-			string queryDefaultValue = (type == ColumnDeclaredType.TEXT ? $"'{defaultValue}'" : defaultValue);
-			string queryDefault = isDefaultChecked ? $" NOT NULL DEFAULT {queryDefaultValue}" : null;
-			string query = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {Enum.GetName<ColumnDeclaredType>(type)}{queryDefault};";
-			SqliteCommand cmd = new(query, sqliteConnection);
-			cmd.ExecuteNonQuery();
-			sqliteConnection.Dispose();
+			SqliteTransaction sqliteTransaction = sqliteConnection.BeginTransaction();
+			try
+			{
+				string queryDefaultValue = (type == ColumnDeclaredType.TEXT ? $"'{defaultValue}'" : defaultValue);
+				string queryDefault = isDefaultChecked ? $" NOT NULL DEFAULT {queryDefaultValue}" : null;
+				string query = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {Enum.GetName<ColumnDeclaredType>(type)}{queryDefault};";
+				SqliteCommand cmd = new(query, sqliteConnection)
+				{
+					Transaction = sqliteTransaction,
+				};
+				cmd.ExecuteNonQuery();
+			}
+			catch (Exception e)
+			{
+				sqliteTransaction.Rollback();
+				sqliteConnection.Close();
+				throw new Exception(e.Message);
+			}
+			finally
+			{
+				sqliteTransaction.Commit();
+				sqliteConnection.Dispose();
+			}
 		}
 
 		public static void RefreshTableFields(Database db, DatabaseTreeItem selectedItem)

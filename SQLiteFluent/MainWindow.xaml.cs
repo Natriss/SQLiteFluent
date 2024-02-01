@@ -21,6 +21,7 @@ namespace SQLiteFluent
 		public MainWindow()
 		{
 			this.InitializeComponent();
+			SettingsHelper.Initialize();
 			ExtendsContentIntoTitleBar = true;
 			Title = "ApplicationName".GetLocalized();
 			SetTitleBar(appTitleBar);

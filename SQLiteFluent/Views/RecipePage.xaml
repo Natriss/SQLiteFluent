@@ -29,7 +29,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:PaneNavLink">
                                 <StackPanel Orientation="Horizontal" Spacing="12">
-                                    <FontIcon Glyph="{x:Bind CodeGlyph}" />
+                                    <!--<FontIcon Glyph="{x:Bind CodeGlyph}" />-->
                                     <TextBlock Text="{x:Bind Name}" />
                                 </StackPanel>
                             </DataTemplate>

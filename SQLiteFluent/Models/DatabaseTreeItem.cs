@@ -17,6 +17,8 @@ namespace SQLiteFluent.Models
 		public string Name { get; set; }
 		public string FieldType { get; set; }
 		public bool IsPrimaryKey { get; set; }
+		public bool IsFieldNotNull { get; set; }
+		public string FieldDefaultValue { get; set; }
 		public IRelayCommand DeleteDatabaseCommand { get; private set; }
 		public IRelayCommand RenameDatabaseCommand { get; private set; }
 		public IRelayCommand DeleteTableCommand { get; private set; }
@@ -76,12 +78,19 @@ namespace SQLiteFluent.Models
 
 		private async void AddColumnIntoTableAsync(object sender)
 		{
-			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
-			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
-			if (await DialogService.AddColumnIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			try
 			{
-				DataAccess.RefreshTableFields(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem);
-				InfoBarService.ShowSuccess(string.Format("AddedColumnToTable".GetLocalized(), selectedItem.Name));
+				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+				if (await DialogService.AddColumnIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+				{
+					DataAccess.RefreshTableFields(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem);
+					InfoBarService.ShowSuccess(string.Format("AddedColumnToTable".GetLocalized(), selectedItem.Name));
+				}
+			}
+			catch (Exception e)
+			{
+				InfoBarService.ShowError(e.Message);
 			}
 		}
 
@@ -98,11 +107,18 @@ namespace SQLiteFluent.Models
 
 		private async void InsertDataIntoTableAsync(object sender)
 		{
-			DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
-			int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
-			if (await DialogService.InsertDataIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+			try
 			{
-				InfoBarService.ShowSuccess(string.Format("DataHasBeenAddedToTable".GetLocalized(), selectedItem.Name));
+				DatabaseTreeItem selectedItem = sender as DatabaseTreeItem;
+				int indexDatabase = AppHelpers.DataSource.IndexOf(selectedItem.DataBase);
+				if (await DialogService.InsertDataIntoTableAsync(AppHelpers.Databases.Where(db => db.Name == AppHelpers.DataSource[indexDatabase].Name).First(), selectedItem) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
+				{
+					InfoBarService.ShowSuccess(string.Format("DataHasBeenAddedToTable".GetLocalized(), selectedItem.Name));
+				}
+			}
+			catch (Exception e)
+			{
+				InfoBarService.ShowError(e.Message);
 			}
 		}
 
