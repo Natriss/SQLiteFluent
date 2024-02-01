@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="756fd37b-6bc8-4ca5-a2a6-d5b35345f14e"
-    Publisher="CN=thibe"
+    Name="6385Natriss.SQLiteFluent"
+    Publisher="CN=735AF0D5-FDD8-432B-A833-C4F81931403C"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="756fd37b-6bc8-4ca5-a2a6-d5b35345f14e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="d92bf997-89c9-4043-bf15-98518bd143a7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>SQLiteFluent</DisplayName>
-    <PublisherDisplayName>thibe</PublisherDisplayName>
+    <PublisherDisplayName>Dragon Software</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
