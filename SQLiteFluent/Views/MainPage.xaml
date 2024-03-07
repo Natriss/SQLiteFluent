@@ -149,6 +149,11 @@
                                 <FontIcon Glyph="&#xE8B5;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
+                        <MenuFlyoutItem x:Uid="ExportDatabase" Command="{x:Bind ViewModel.ExportDatabaseFlyoutCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEDE1;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>

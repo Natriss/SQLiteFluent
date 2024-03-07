@@ -41,6 +41,7 @@ namespace SQLiteFluent.ViewModels
 
 		public ICommand AddDatabaseFlyoutCommand { get; private set; }
 		public ICommand ImportDatabaseFlyoutCommand { get; private set; }
+		public ICommand ExportDatabaseFlyoutCommand { get; private set; }
 		public IRelayCommand ExecuteQueryCommand { get; private set; }
 		public IRelayCommand OpenSettingsCommand { get; private set; }
 		public IRelayCommand OpenHelpRecipeCommand { get; private set; }
@@ -49,9 +50,25 @@ namespace SQLiteFluent.ViewModels
 		{
 			AddDatabaseFlyoutCommand = new RelayCommand(AddDatabaseAsync);
 			ImportDatabaseFlyoutCommand = new RelayCommand(ImportDatabaseAsync);
+			ExportDatabaseFlyoutCommand = new RelayCommand(ExportDatabaseAsync);
 			ExecuteQueryCommand = new RelayCommand(ExecuteQuery, () => { return (SelectedComboboxItem != null) && !string.IsNullOrWhiteSpace(Query); });
 			OpenSettingsCommand = new RelayCommand(NavigateToSettings);
 			OpenHelpRecipeCommand = new RelayCommand(NavigateToRecipe);
+		}
+
+		private async void ExportDatabaseAsync()
+		{
+			try
+			{
+				if (await DialogService.ExportDatabaseAsync() == ContentDialogResult.Primary)
+				{
+					InfoBarService.ShowSuccess("DatabaseHasBeenExported".GetLocalized());
+				}
+			}
+			catch (Exception e)
+			{
+				InfoBarService.ShowError(e.Message);
+			}
 		}
 
 		private async void AddDatabaseAsync()

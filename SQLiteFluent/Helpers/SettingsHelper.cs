@@ -1,4 +1,5 @@
-﻿using Windows.Storage;
+﻿using System;
+using Windows.Storage;
 
 namespace SQLiteFluent.Helpers
 {
@@ -18,13 +19,29 @@ namespace SQLiteFluent.Helpers
 			}
 		}
 
+		public static string ExportLocation
+		{
+			get
+			{
+				return (string)_localSettings.Values["ExportLocation"];
+			}
+			set
+			{
+				_localSettings.Values["ExportLocation"] = value;
+			}
+		}
+
 		public static void Initialize()
 		{
-			_localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+			_localSettings = ApplicationData.Current.LocalSettings;
 
-			if (_localSettings.Values.Count == 0)
+			if (_localSettings.Values["AutoIncrement"] == null)
 			{
 				_localSettings.Values["AutoIncrement"] = true;
+			}
+			if (_localSettings.Values["ExportLocation"] == null)
+			{
+				_localSettings.Values["ExportLocation"] = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 			}
 		}
 	}

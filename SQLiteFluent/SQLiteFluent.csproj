@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
@@ -11,23 +11,34 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\Logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\Colophon\Colophon.rtf" />
     <None Remove="Controls\RecipeControl.xaml" />
     <None Remove="Fonts\SQLiteFluent.otf" />
     <None Remove="Fonts\SQLiteFluentIcons.otf" />
     <None Remove="Views\Dialogs\AddColumnIntoTableDialog.xaml" />
     <None Remove="Views\Dialogs\AddDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\AskBeforeDeletionDialog.xaml" />
+    <None Remove="Views\Dialogs\ExportDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\ImportDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\InsertDataIntoTableDialog.xaml" />
     <None Remove="Views\Dialogs\RenameDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\RenameTableDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
     <None Remove="Views\RecipePage.xaml" />
+    <None Remove="Views\Recipes\Advanced\PragmaPage.xaml" />
     <None Remove="Views\Recipes\CreatePage.xaml" />
     <None Remove="Views\Recipes\DeletePage.xaml" />
     <None Remove="Views\Recipes\DropPage.xaml" />
@@ -54,8 +65,8 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.0.240109" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231219000" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240227000" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -69,6 +80,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SQLiteFluent.Core\SQLiteFluent.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\Colophon\Colophon.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\ExportDatabaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Recipes\CreatePage.xaml">
@@ -147,6 +168,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\RecipeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Recipes\Advanced\PragmaPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

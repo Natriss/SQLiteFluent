@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using SQLiteFluent.Models;
 using SQLiteFluent.Views.Recipes;
+using SQLiteFluent.Views.Recipes.Advanced;
 using System;
 using System.Collections.ObjectModel;
 
@@ -20,6 +21,13 @@ namespace SQLiteFluent.ViewModels
 		};
 
 		public ObservableCollection<PaneNavLink> ItemSource { get { return _items; } }
+
+		private readonly ObservableCollection<PaneNavLink> _itemsAdvanced = new()
+		{
+			new PaneNavLink() { Name = "Pragma", CodeGlyph = "\uE734", Page = typeof(PragmaPage) },
+		};
+
+		public ObservableCollection<PaneNavLink> ItemSourceAdvanced { get { return _itemsAdvanced; } }
 
 		public IRelayCommand OpenPaneNavLinkCommand { get; private set; }
 

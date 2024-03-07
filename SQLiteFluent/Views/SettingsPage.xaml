@@ -16,20 +16,43 @@
         <TextBlock Grid.Row="0" x:Uid="SettingsTitle" Style="{StaticResource TitleTextBlockStyle}" />
 
         <ScrollView Grid.Row="1">
-            <Grid RowSpacing="12">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <StackPanel Spacing="12" Orientation="Vertical" HorizontalAlignment="Stretch">
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
+                <controls:SettingsCard x:Uid="SettingsCardAutoIncrement">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.AutoIncrement, Mode=TwoWay}"/>
+                </controls:SettingsCard>
 
-                <Grid Grid.Row="0">
-                    <controls:SettingsCard x:Uid="SettingsCardAutoIncrement">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.AutoIncrement, Mode=TwoWay}"/>
-                    </controls:SettingsCard>
-                </Grid>
+                <Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Margin="0,16" Spacing="2">
+                            <TextBlock x:Uid="SettingsExpanderExportDatabaseHeader" Style="{ThemeResource BodyTextBlockStyle}" />
+                            <TextBlock x:Uid="SettingsExpanderExportDatabaseDescription" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextBoxPlaceholderTextThemeBrush}" />
+                        </StackPanel>
+                    </Expander.Header>
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Bind ViewModel.ExportPath, Mode=OneWay}" />
+                        <Button Grid.Column="1" Command="{x:Bind ViewModel.ChangeLocationCommand}">
+                            <Button.Content>
+                                <StackPanel Spacing="8" Orientation="Horizontal">
+                                    <FontIcon Glyph="&#xE8DE;" />
+                                    <TextBlock x:Uid="SettingsExpanderExportDatabaseChange" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Column="2" x:Uid="SettingsExpanderExportDatabaseReset" Command="{x:Bind ViewModel.ResetLocationCommand}" />
+                    </Grid>
+                </Expander>
 
-                <Grid Grid.Row="1" RowSpacing="6">
+                <Grid RowSpacing="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -43,13 +66,11 @@
                     </TextBlock>
                 </Grid>
 
-                <Grid Grid.Row="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical">
                     <HyperlinkButton Content="Help" NavigateUri="https://www.dragon-software.eu/apps/SQLiteFluent" />
-                </Grid>
-            </Grid>
+                    <HyperlinkButton Content="Colophon" Click="HyperlinkButton_Click" />
+                </StackPanel>
+            </StackPanel>
         </ScrollView>
     </Grid>
 </Page>

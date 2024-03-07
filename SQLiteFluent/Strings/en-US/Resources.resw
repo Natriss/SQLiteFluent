@@ -198,6 +198,9 @@
   <data name="DatabaseHasBeenAdded" xml:space="preserve">
     <value>Database has been added.</value>
   </data>
+  <data name="DatabaseHasBeenExported" xml:space="preserve">
+    <value>Database has been exported.</value>
+  </data>
   <data name="DatabaseHasBeenImported" xml:space="preserve">
     <value>Database has been imported.</value>
   </data>
@@ -218,6 +221,18 @@
   </data>
   <data name="Execute.Text" xml:space="preserve">
     <value>Execute</value>
+  </data>
+  <data name="ExportDatabase.Text" xml:space="preserve">
+    <value>Export database</value>
+  </data>
+  <data name="ExportDatabaseDialogCloseBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ExportDatabaseDialogPrimaryBtn" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportDatabaseDialogTitle" xml:space="preserve">
+    <value>Export database</value>
   </data>
   <data name="ImportDatabase.Text" xml:space="preserve">
     <value>Import database</value>
@@ -266,8 +281,14 @@
   </data>
   <data name="RecipeCreateTable.Information" xml:space="preserve">
     <value>The CREATE TABLE statement is used to create a new table. The column name is case sensitive and for the type you can choose one of the following: TEXT, NUMBER, INTEGER, BLOB, REAL.
-Optional: if the column is a primary key then use PRIMARY KEY or UNIQUE for a unique key.
+Optional: if the column is a primary key then use PRIMARY KEY.
 Is the column NULL or NOT NULL. You can also use DEFAULT [value]. This will auto result in NOT NULL.</value>
+  </data>
+  <data name="RecipeCreateTableForeign.Information" xml:space="preserve">
+    <value>Use the CREATE TABLE statement as described above.
+This is an example of how the foreing key can be used (linking child with parent):
+ParentID INTEGER,
+FOREIGN KEY (ParentID) REFERENCES parent(ID)</value>
   </data>
   <data name="RecipeDelete.Information" xml:space="preserve">
     <value>The DELETE statement is used to remove all data from a table.</value>
@@ -278,8 +299,29 @@ Is the column NULL or NOT NULL. You can also use DEFAULT [value]. This will auto
   <data name="RecipeDropTable.Information" xml:space="preserve">
     <value>The DROP TABLE remove the table and all it's data.</value>
   </data>
+  <data name="RecipePaneAdvancedHeader.Text" xml:space="preserve">
+    <value>SQLite Advanced commands</value>
+  </data>
   <data name="RecipePaneHeader.Text" xml:space="preserve">
     <value>SQLite commands</value>
+  </data>
+  <data name="RecipePragmaTableInfo.Information" xml:space="preserve">
+    <value>View all the information about a table.
+CID: The column id
+NAME: The name of the column
+TYPE: The data type of the column
+NOTNULL: Indicates whether the column can contain NULL (0 for no, 1 for yes)
+DFLT_VALUE: The default value for the column
+PK: Indicates whether the column is a primary key (0 for no, 1 for yes)</value>
+  </data>
+  <data name="RecipePragmaTableList.Information" xml:space="preserve">
+    <value>This pragma returns information about the tables and views in the schema, one table per row of output.
+SCHEMA: the schema in which the table or view appears (for example "main" or "temp").
+NAME: the name of the table or view.
+TYPE: the type of object - one of "table", "view", "shadow" (for shadow tables), or "virtual" for virtual tables.
+NCOL: the number of columns in the table, including generated columns and hidden columns.
+WR: 1 if the table is a WITHOUT ROWID table or 0 if is not.
+STRICT: 1 if the table is a STRICT table or 0 if it is not.</value>
   </data>
   <data name="RecipeSelect.Information" xml:space="preserve">
     <value>The SELECT statement is used to get data from specified columns or all data from a table.</value>
@@ -364,6 +406,18 @@ Is the column NULL or NOT NULL. You can also use DEFAULT [value]. This will auto
   </data>
   <data name="SettingsCardAutoIncrement.Header" xml:space="preserve">
     <value>Auto increment</value>
+  </data>
+  <data name="SettingsExpanderExportDatabaseChange.Text" xml:space="preserve">
+    <value>Change location</value>
+  </data>
+  <data name="SettingsExpanderExportDatabaseDescription.Text" xml:space="preserve">
+    <value>Select the location of where the database should be exported to.</value>
+  </data>
+  <data name="SettingsExpanderExportDatabaseHeader.Text" xml:space="preserve">
+    <value>Database export location</value>
+  </data>
+  <data name="SettingsExpanderExportDatabaseReset.Content" xml:space="preserve">
+    <value>Reset to default</value>
   </data>
   <data name="SettingsTitle.Text" xml:space="preserve">
     <value>Settings</value>

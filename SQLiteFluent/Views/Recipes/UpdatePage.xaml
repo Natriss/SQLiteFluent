@@ -17,6 +17,11 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
                 <controls:RecipeControl x:Uid="RecipeUpdateWhere" Query="UPDATE [table name] SET [column name = value, ...] WHERE [condition];" />
             </StackPanel>
         </ScrollView>

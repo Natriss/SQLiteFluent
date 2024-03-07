@@ -22,10 +22,23 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" x:Uid="RecipePaneHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <ListView Grid.Row="1" ItemsSource="{x:Bind ViewModel.ItemSource, Mode=OneWay}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                    <ListView x:Name="NormalCommands" Grid.Row="1" ItemsSource="{x:Bind ViewModel.ItemSource, Mode=OneWay}" IsItemClickEnabled="True" ItemClick="NormalCommands_ItemClick">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:PaneNavLink">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <!--<FontIcon Glyph="{x:Bind CodeGlyph}" />-->
+                                    <TextBlock Text="{x:Bind Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBlock Grid.Row="2" x:Uid="RecipePaneAdvancedHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <ListView x:Name="AdvancedCommands" Grid.Row="3" ItemsSource="{x:Bind ViewModel.ItemSourceAdvanced, Mode=OneWay}" IsItemClickEnabled="True" ItemClick="AdvancedCommands_ItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:PaneNavLink">
                                 <StackPanel Orientation="Horizontal" Spacing="12">

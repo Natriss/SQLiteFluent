@@ -10,9 +10,9 @@
   <Identity
     Name="6385Natriss.SQLiteFluent"
     Publisher="CN=735AF0D5-FDD8-432B-A833-C4F81931403C"
-    Version="1.0.0.0" />
+    Version="1.1.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="d92bf997-89c9-4043-bf15-98518bd143a7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="7d51e5ed-6fbf-49c3-acdd-5bfafc267749" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>SQLiteFluent</DisplayName>

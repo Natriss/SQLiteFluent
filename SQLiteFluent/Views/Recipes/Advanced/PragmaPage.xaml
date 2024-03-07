@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="SQLiteFluent.Views.Recipes.DeletePage"
+    x:Class="SQLiteFluent.Views.Recipes.Advanced.PragmaPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SQLiteFluent.Views.Recipes"
+    xmlns:local="using:SQLiteFluent.Views.Recipes.Advanced"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:controls="using:SQLiteFluent.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:SQLiteFluent.Controls"
     mc:Ignorable="d">
 
     <Grid Margin="12,0" RowSpacing="12">
@@ -14,7 +13,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Delete" Style="{StaticResource TitleTextBlockStyle}" />
+        <TextBlock Grid.Row="0" Text="Pragma" Style="{StaticResource TitleTextBlockStyle}" />
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
@@ -23,8 +22,8 @@
                         <RepositionThemeTransition />
                     </TransitionCollection>
                 </StackPanel.ChildrenTransitions>
-                <controls:RecipeControl x:Uid="RecipeDelete" Query="DELETE FROM [table name];" />
-                <controls:RecipeControl x:Uid="RecipeDeleteWhere" Query="DELETE FROM [table name] WHERE [condition];" />
+                <controls:RecipeControl x:Uid="RecipePragmaTableInfo" Query="pragma table_info;" />
+                <controls:RecipeControl x:Uid="RecipePragmaTableList" Query="pragma table_list;" />
             </StackPanel>
         </ScrollView>
     </Grid>

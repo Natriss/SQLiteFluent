@@ -171,5 +171,29 @@ namespace SQLiteFluent.Services
 
 			return result;
 		}
+
+		internal static async Task<ContentDialogResult> ExportDatabaseAsync()
+		{
+			ContentDialog contentDialog = new()
+			{
+				XamlRoot = AppHelpers.Root.XamlRoot,
+				Title = "ExportDatabaseDialogTitle".GetLocalized(),
+				Content = new ExportDatabaseDialog(),
+				PrimaryButtonText = "ExportDatabaseDialogPrimaryBtn".GetLocalized(),
+				CloseButtonText = "ExportDatabaseDialogCloseBtn".GetLocalized(),
+				DefaultButton = ContentDialogButton.Primary,
+			};
+			ContentDialogResult result = await contentDialog.ShowAsync();
+
+			if (result != ContentDialogResult.Primary)
+			{
+				return result;
+			}
+
+			ExportDatabaseDialogViewModel vm = ((ExportDatabaseDialog)contentDialog.Content).DataContext as ExportDatabaseDialogViewModel;
+			DataAccess.ExportDatabase(vm.SelectedComboboxItem);
+
+			return result;
+		}
 	}
 }

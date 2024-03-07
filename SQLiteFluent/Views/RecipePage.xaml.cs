@@ -22,11 +22,30 @@ namespace SQLiteFluent.Views
 			ViewModel.ContentPaneFrame = contentPaneFrame;
 		}
 
-		private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+		private void NavigateToPanePage(PaneNavLink item)
 		{
-			PaneNavLink item = e.ClickedItem as PaneNavLink;
 			if (ViewModel.ContentPaneFrame.Content != null && item.Page == ViewModel.ContentPaneFrame.Content.GetType()) { return; }
 			ViewModel.OpenPaneNavLink(item.Page);
+		}
+
+		private void NormalCommands_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			PaneNavLink item = e.ClickedItem as PaneNavLink;
+			if (AdvancedCommands.SelectedItem != null)
+			{
+				AdvancedCommands.SelectedItem = null;
+			}
+			NavigateToPanePage(item);
+		}
+
+		private void AdvancedCommands_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			PaneNavLink item = e.ClickedItem as PaneNavLink;
+			if (NormalCommands.SelectedItem != null)
+			{
+				NormalCommands.SelectedItem = null;
+			}
+			NavigateToPanePage(item);
 		}
 	}
 }

@@ -17,7 +17,13 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
                 <controls:RecipeControl x:Uid="RecipeCreateTable" Query="CREATE TABLE [table name] ([column name] [column type] [optional], ...);" />
+                <controls:RecipeControl x:Uid="RecipeCreateTableForeign" Query="CREATE TABLE [table name] ([column name] [column type] [optional], FOREIGN KEY ([column name]) REFERENCES [table name]([column name]));" />
             </StackPanel>
         </ScrollView>
     </Grid>

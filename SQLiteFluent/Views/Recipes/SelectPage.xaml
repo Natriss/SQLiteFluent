@@ -18,6 +18,11 @@
 
         <ScrollView Grid.Row="1">
             <StackPanel Orientation="Vertical" Spacing="12">
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
                 <controls:RecipeControl x:Uid="RecipeSelect" Query="SELECT [column name, ... | *] FROM [table name];" />
                 <controls:RecipeControl x:Uid="RecipeSelectWhere" Query="WHERE [conditions];" />
                 <controls:RecipeControl x:Uid="RecipeSelectGroupBy" Query="GROUP BY [column name, ...];" />

@@ -392,5 +392,19 @@ namespace SQLiteFluent.Models
 				sqliteConnection.Dispose();
 			}
 		}
+
+		public static void ExportDatabase(Database selectedComboboxItem)
+		{
+			try
+			{
+				SqliteConnection.ClearPool(GetConnection(selectedComboboxItem.Name));
+				File.Copy(selectedComboboxItem.Path, string.Format("{0}\\{1}.db", SettingsHelper.ExportLocation, selectedComboboxItem.Name), true);
+				RefreshDatabases();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
 	}
 }
