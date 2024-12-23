@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SQLiteFluent.Views.Dialogs.OpenHelpDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SQLiteFluent.Views.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollView>
+        <StackPanel HorizontalAlignment="Stretch">
+            <Expander Header="Is it an fully Open Source project?" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <TextBlock Text="Yes. SQLiteFluent is fully Open Source and has the MIT license." TextWrapping="Wrap" />
+                </Expander.Content>
+            </Expander>
+            <Expander Header="Can I view other databases?" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <TextBlock Text="No. SQLiteFluent can only view, create, modify and delete SQLite databases." TextWrapping="Wrap" />
+                </Expander.Content>
+            </Expander>
+            <Expander Header="Can I view a database outside the app?" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <TextBlock Text="No. SQLiteFluent can only view, create, modify and delete SQLite databases that are inside the application." TextWrapping="Wrap" />
+                </Expander.Content>
+            </Expander>
+            <Expander Header="Will it also come to macOS, iOS or android?" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <TextBlock Text="No. SQLiteFluent is only available for devices running Windows 10 or higher." TextWrapping="Wrap" />
+                </Expander.Content>
+            </Expander>
+            <Expander Header="Why can't it import my SQLite Database file?" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <TextBlock Text="SQLiteFluent currently only supports .db files." TextWrapping="Wrap" />
+                </Expander.Content>
+            </Expander>
+        </StackPanel>
+    </ScrollView>
+</Page>

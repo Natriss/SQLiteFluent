@@ -30,7 +30,7 @@
                     <Expander.Header>
                         <StackPanel Margin="0,16" Spacing="2">
                             <TextBlock x:Uid="SettingsExpanderExportDatabaseHeader" Style="{ThemeResource BodyTextBlockStyle}" />
-                            <TextBlock x:Uid="SettingsExpanderExportDatabaseDescription" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextBoxPlaceholderTextThemeBrush}" />
+                            <TextBlock x:Uid="SettingsExpanderExportDatabaseDescription" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.75" />
                         </StackPanel>
                     </Expander.Header>
                     <Grid ColumnSpacing="8">
@@ -62,12 +62,12 @@
                         <Run Text="SQLiteFluent"/>
                         <Run Text="{x:Bind ViewModel.Version}"/>
                         <LineBreak/>
-                        <Run Text="©️ 2024 Dragon Software"/>
+                        <Run Text="©️ 2024 Natriss"/>
                     </TextBlock>
                 </Grid>
 
                 <StackPanel Orientation="Vertical">
-                    <HyperlinkButton Content="Help" NavigateUri="https://www.dragon-software.eu/apps/SQLiteFluent" />
+                    <HyperlinkButton Content="Help" Command="{x:Bind ViewModel.OpenHelpCommand}" />
                     <HyperlinkButton Content="Colophon" Click="HyperlinkButton_Click" />
                 </StackPanel>
             </StackPanel>

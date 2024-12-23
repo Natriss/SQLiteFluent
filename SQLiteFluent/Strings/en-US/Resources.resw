@@ -270,6 +270,12 @@
   <data name="InsertDataIntoTableDialogTitle" xml:space="preserve">
     <value>Insert data into the table</value>
   </data>
+  <data name="OpenHelpDialogCloseBtn" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="OpenHelpDialogTitle" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="QueryWasExecuted" xml:space="preserve">
     <value>Query was executed.</value>
   </data>

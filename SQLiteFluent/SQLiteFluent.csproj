@@ -34,6 +34,7 @@
     <None Remove="Views\Dialogs\ExportDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\ImportDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\InsertDataIntoTableDialog.xaml" />
+    <None Remove="Views\Dialogs\OpenHelpDialog.xaml" />
     <None Remove="Views\Dialogs\RenameDatabaseDialog.xaml" />
     <None Remove="Views\Dialogs\RenameTableDialog.xaml" />
     <None Remove="Views\MainPage.xaml" />
@@ -85,6 +86,11 @@
     <Content Update="Assets\Colophon\Colophon.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\OpenHelpDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\ExportDatabaseDialog.xaml">

@@ -195,5 +195,25 @@ namespace SQLiteFluent.Services
 
 			return result;
 		}
-	}
+
+        public static async Task<ContentDialogResult> OpenHelpAsync()
+        {
+            ContentDialog contentDialog = new()
+            {
+                XamlRoot = AppHelpers.Root.XamlRoot,
+                Title = "OpenHelpDialogTitle".GetLocalized(),
+                Content = new OpenHelpDialog(),
+                CloseButtonText = "OpenHelpDialogCloseBtn".GetLocalized(),
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            ContentDialogResult result = await contentDialog.ShowAsync();
+
+            if (result != ContentDialogResult.Primary)
+            {
+                return result;
+            }
+
+            return result;
+        }
+    }
 }

@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using Windows.ApplicationModel;
+using SQLiteFluent.Services;
 
 namespace SQLiteFluent.ViewModels
 {
@@ -17,11 +18,7 @@ namespace SQLiteFluent.ViewModels
 		{
 			get
 			{
-				Package package = Package.Current;
-				PackageId packageId = package.Id;
-				PackageVersion version = packageId.Version;
-
-				return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+				return "1.2.0.0";
 			}
 		}
 
@@ -53,14 +50,21 @@ namespace SQLiteFluent.ViewModels
 
 		public IRelayCommand ChangeLocationCommand { get; private set; }
 		public IRelayCommand ResetLocationCommand { get; private set; }
+		public IRelayCommand OpenHelpCommand { get; private set; }
 
-		public SettingsViewModel()
+        public SettingsViewModel()
 		{
 			ChangeLocationCommand = new RelayCommand(ChangeLocation);
 			ResetLocationCommand = new RelayCommand(ResetLocation);
+			OpenHelpCommand = new RelayCommand(OpenHelp);
 		}
 
-		private async void ChangeLocation()
+        private async void OpenHelp()
+        {
+			await DialogService.OpenHelpAsync();
+        }
+
+        private async void ChangeLocation()
 		{
 			FolderPicker folderPicker = new()
 			{
